@@ -190,5 +190,153 @@ document.getElementById('certModal').addEventListener('click',e=>{if(e.target.id
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* CHATBOT */
-setTimeout(()=>{const t=document.getElementById('chatTip');if(t)t.style.display='none';},5000);
-function openChat(){ const btn=document.querySelector('.chatbot-btn'); btn.style.transform='scale(0.88)'; setTimeout(()=>btn.style.transform='',180); }
+(function(){
+    var KB = [
+        {
+            keys: ['shell','eco','marathon','brazil','brasil','americas','result','win','won','place','efficiency','km/kwh','mi/kwh','373','196','racing','borregos'],
+            answer: "\uD83C\uDFC6 Competed with <strong>Borregos Racing</strong> at two Shell Eco-marathon editions in 2025:<br>\u2022 <strong>Americas</strong> \u2014 2nd place \u00B7 196.8 mi/kWh<br>\u2022 <strong>Brazil</strong> \u2014 2nd place \u00B7 373.2 km/kWh<br>Both in the Prototype Battery-Electric category. Focused on energy systems optimization and vehicle subsystem integration."
+        },
+        {
+            keys: ['exoskeleton','chairless','chair','passive','lower','limb','leg','biomech','knee','linkage','wearable'],
+            answer: "The <strong>Chairless Chair</strong> is a passive lower-limb exoskeleton I'm currently building. A locking knee linkage transfers body weight through an aluminum frame directly to the ground, cutting static muscle fatigue. Target: industrial assembly lines and rehab. Currently at ~40% build progress."
+        },
+        {
+            keys: ['skill','know','language','python','c++','matlab','javascript','pytorch','tensorflow','opencv','arduino','solidworks','git','linux'],
+            answer: "My main skills:<br><strong>Programming:</strong> Python, C++, JavaScript, MATLAB<br><strong>AI/ML:</strong> PyTorch, TensorFlow, OpenCV, scikit-learn<br><strong>Robotics/HW:</strong> Arduino, SolidWorks, 3D Printing<br><strong>Tools:</strong> Git, Linux, VS Code, Flask"
+        },
+        {
+            keys: ['ai','machine learning','deep learning','neural','ml','intelligence','nvidia','certificate','cert','santander','course'],
+            answer: "I hold two AI certifications:<br>\u2022 <strong>NVIDIA DLI</strong> \u2014 Fundamentals of Deep Learning<br>\u2022 <strong>Santander Open Academy</strong> \u2014 Introduction to AI Engineering<br>Also learning AI through real projects (PyTorch, TensorFlow, OpenCV) and research at SHIELD."
+        },
+        {
+            keys: ['experience','work','shield','research','becario','scholar'],
+            answer: "Current experience:<br>\u2022 <strong>Borregos Racing</strong> (2024\u2013present) \u2014 energy systems & vehicle integration, two 2nd-place finishes at Shell Eco-marathon<br>\u2022 <strong>SHIELD Research Scholar</strong> (2025\u2013present) \u2014 robotics, automation, and AI at ITESM"
+        },
+        {
+            keys: ['education','study','school','itesm','tec','monterrey','semester','degree','mechatronics','university'],
+            answer: "Studying <strong>Mechatronics Engineering</strong> at <strong>Tecnológico de Monterrey (ITESM)</strong>, currently in my 4th semester. Focus: AI, robotics, and automation."
+        },
+        {
+            keys: ['internship','hire','job','part-time','part time','opportunity','open','available','recruit','looking'],
+            answer: "Yes! Actively looking for <strong>part-time roles or internships</strong> in AI, robotics, or automation \u2014 something that can run alongside my classes. Reach me at <a href='mailto:vmcarlos024@gmail.com' style='color:#c4b5fd'>vmcarlos024@gmail.com</a>"
+        },
+        {
+            keys: ['contact','email','linkedin','github','reach','find','social','connect'],
+            answer: "Best ways to reach me:<br>\u2022 Email: <a href='mailto:vmcarlos024@gmail.com' style='color:#c4b5fd'>vmcarlos024@gmail.com</a><br>\u2022 LinkedIn: <a href='https://www.linkedin.com/in/carlos-velasco-moreno' target='_blank' style='color:#c4b5fd'>carlos-velasco-moreno</a><br>\u2022 GitHub: <a href='https://github.com/CharlsMex24' target='_blank' style='color:#c4b5fd'>CharlsMex24</a>"
+        },
+        {
+            keys: ['project','portfolio','build','built','current','doing'],
+            answer: "Current / recent projects:<br>\u2022 <strong>Chairless Chair</strong> \u2014 passive lower-limb exoskeleton (in progress)<br>\u2022 <strong>Borregos Racing EV</strong> \u2014 energy-efficient prototype vehicle<br>\u2022 <strong>SHIELD Research</strong> \u2014 robotics & AI at ITESM<br>Check the Portfolio section above for full details!"
+        },
+        {
+            keys: ['who','about','yourself','you','carlos','name','intro','tell me','hello','hi','hey'],
+            answer: "Hey! I'm <strong>Carlos Velasco</strong>, a Mechatronics Engineering student at ITESM Monterrey (4th semester). Focused on AI, robotics, and automation. I've competed at Shell Eco-marathon (2nd place twice), building a passive exoskeleton, and doing research at SHIELD. Ask me anything!"
+        },
+        {
+            keys: ['cv','resume','pdf','download'],
+            answer: "You can view and download my CV here: <a href='assets/documents/cv.pdf' target='_blank' style='color:#c4b5fd'>Open CV PDF \u2192</a>"
+        },
+        {
+            keys: ['goal','plan','future','aspire','dream','company','startup','create'],
+            answer: "Short-term: land a part-time job or internship in AI/robotics while finishing my degree. Long-term: build a company at the intersection of AI and industrial automation \u2014 intelligent systems that work in physical environments."
+        }
+    ];
+
+    var FALLBACKS = [
+        "Not sure about that \u2014 try asking about my <strong>projects</strong>, <strong>skills</strong>, <strong>Shell Eco-marathon</strong> results, or if I'm open to <strong>internships</strong>!",
+        "Outside my knowledge base. Try: 'What are your skills?' or 'Tell me about the Chairless Chair'.",
+        "No answer for that one. Reach me at <a href='mailto:vmcarlos024@gmail.com' style='color:#c4b5fd'>vmcarlos024@gmail.com</a>!"
+    ];
+
+    var fallbackIdx = 0;
+    var chatOpen = false;
+    var greeted = false;
+
+    var win   = document.getElementById('chatWindow');
+    var msgs  = document.getElementById('chatMessages');
+    var inputEl = document.getElementById('chatInput');
+    var tip   = document.getElementById('chatTip');
+    var btnEl = document.getElementById('chatbotBtn');
+    var chips = document.getElementById('chatChips');
+
+    if(tip) setTimeout(function(){ tip.style.opacity='0'; setTimeout(function(){ tip.style.display='none'; },400); }, 5000);
+
+    function toggleChat(){
+        chatOpen = !chatOpen;
+        if(win) win.classList.toggle('open', chatOpen);
+        if(btnEl){
+            btnEl.querySelector('.chat-icon-open').style.display  = chatOpen ? 'none' : '';
+            btnEl.querySelector('.chat-icon-close').style.display = chatOpen ? ''     : 'none';
+        }
+        if(tip) tip.style.display='none';
+        if(chatOpen && !greeted){
+            greeted = true;
+            setTimeout(function(){ addBot("Hey! I'm a quick chatbot version of Carlos. Ask me about my projects, skills, competitions, or whether I'm open to work \u2014 I'll do my best to answer!"); }, 350);
+        }
+        if(chatOpen) setTimeout(function(){ if(inputEl) inputEl.focus(); }, 400);
+    }
+
+    function addMsg(html, role){
+        var wrap = document.createElement('div');
+        wrap.className = 'chat-msg ' + role;
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-bubble';
+        bubble.innerHTML = html;
+        wrap.appendChild(bubble);
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+        return wrap;
+    }
+
+    function addBot(html){
+        var typing = document.createElement('div');
+        typing.className = 'chat-msg bot';
+        typing.innerHTML = '<div class="chat-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+        msgs.appendChild(typing);
+        msgs.scrollTop = msgs.scrollHeight;
+        var delay = 600 + Math.min(html.length * 1.5, 800);
+        setTimeout(function(){
+            if(msgs.contains(typing)) msgs.removeChild(typing);
+            addMsg(html, 'bot');
+        }, delay);
+    }
+
+    function respond(text){
+        var lower = text.toLowerCase();
+        for(var i=0; i<KB.length; i++){
+            var entry = KB[i];
+            for(var j=0; j<entry.keys.length; j++){
+                if(lower.indexOf(entry.keys[j]) !== -1){
+                    return entry.answer;
+                }
+            }
+        }
+        var fb = FALLBACKS[fallbackIdx % FALLBACKS.length];
+        fallbackIdx++;
+        return fb;
+    }
+
+    function send(text){
+        var trimmed = text.trim();
+        if(!trimmed) return;
+        addMsg(trimmed, 'user');
+        if(chips) chips.style.display = 'none';
+        addBot(respond(trimmed));
+    }
+
+    function handleChatSubmit(e){
+        e.preventDefault();
+        if(!inputEl) return;
+        var val = inputEl.value;
+        inputEl.value = '';
+        send(val);
+    }
+
+    function sendChip(el){
+        send(el.textContent.trim());
+    }
+
+    window.toggleChat       = toggleChat;
+    window.handleChatSubmit = handleChatSubmit;
+    window.sendChip         = sendChip;
+})();

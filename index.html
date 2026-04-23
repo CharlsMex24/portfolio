@@ -495,11 +495,36 @@
     <p>Built by <span class="hl">Carlos Velasco</span> · Last updated: April 2025</p>
 </footer>
  
+<!-- CHATBOT -->
 <div class="chat-tip" id="chatTip">Ask me about my projects 💬</div>
-<button class="chatbot-btn" onclick="openChat()" aria-label="Chat">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+<button class="chatbot-btn" id="chatbotBtn" onclick="toggleChat()" aria-label="Chat">
+    <svg class="chat-icon-open" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+    <svg class="chat-icon-close" viewBox="0 0 24 24" style="display:none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
 </button>
- 
+
+<div class="chat-window" id="chatWindow" aria-live="polite">
+    <div class="chat-header">
+        <div class="chat-avatar">CV</div>
+        <div class="chat-hd-info">
+            <div class="chat-hd-name">Carlos Velasco</div>
+            <div class="chat-hd-status"><span class="live-dot"></span>Ask me anything</div>
+        </div>
+        <button class="chat-close-btn" onclick="toggleChat()" aria-label="Close chat">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-chips" id="chatChips">
+        <button class="chat-chip" onclick="sendChip(this)">Shell Eco-marathon results?</button>
+        <button class="chat-chip" onclick="sendChip(this)">What projects are you working on?</button>
+        <button class="chat-chip" onclick="sendChip(this)">What are your skills?</button>
+        <button class="chat-chip" onclick="sendChip(this)">Open to internships?</button>
+    </div>
+    <form class="chat-form" id="chatForm" onsubmit="handleChatSubmit(event)">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Ask about my work…" autocomplete="off" maxlength="200">
+        <button class="chat-send" type="submit" aria-label="Send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+    </form>
+</div>
 
 <script src="assets/js/main.js"></script>
 </body>
