@@ -1,0 +1,39 @@
+# ── Backup files ──────────────────────────────────────────────────────────────
+*.bak
+*.orig
+*.tmp
+*~
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.*
+
+# ── OS junk ───────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Editor / IDE ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Node / package managers ───────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ── Build output ──────────────────────────────────────────────────────────────
+dist/
+build/
+.cache/
