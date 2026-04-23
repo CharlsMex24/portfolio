@@ -1,72 +1,81 @@
-# Portafolio Web — Carlos
+# Carlos Velasco — Portfolio
 
-Portafolio personal. Estudiante de Ingeniería Mecatrónica con enfoque en IA, robótica y automatización.
+> Personal portfolio and evidence showcase built from scratch with vanilla HTML, CSS, and JavaScript.  
+> Live at **[charlsmex24.github.io/portfolio](https://charlsmex24.github.io/portfolio)**
 
-## Estructura del proyecto
+---
 
-```
-Portafolio Web/
-├── index.html                 # Página principal
-├── README.md                  # Este archivo
-└── assets/
-    ├── css/                   # Hojas de estilo (cuando se extraiga el CSS del HTML)
-    ├── js/                    # Scripts (cuando se extraiga el JS del HTML)
-    ├── images/
-    │   ├── profile/           # Fotos personales (perfil, about, hero)
-    │   ├── projects/          # Screenshots y fotos de proyectos
-    │   └── events/            # Fotos de eventos, competencias, viajes
-    ├── certificates/          # Certificados (PNG, JPG o PDF)
-    ├── documents/
-    │   └── cv.pdf             # CV descargable
-    └── icons/                 # Favicon, logos, íconos propios
-```
+## About
 
-## Qué archivo va dónde
+This site is my personal engineering portfolio — a single-page application that documents my academic work, competition results, certifications, and ongoing projects. Everything here is real: no template, no framework, no boilerplate.
 
-| Tipo de archivo | Carpeta | Ejemplo |
-|---|---|---|
-| Foto tuya (perfil, about) | `assets/images/profile/` | `carlos-perfil.jpg` |
-| Screenshot de un proyecto | `assets/images/projects/` | `exoskeleton.jpg` |
-| Foto de evento / competencia | `assets/images/events/` | `Brazil2025.jpg` |
-| Certificado | `assets/certificates/` | `cert-santander.png` |
-| CV | `assets/documents/` | `cv.pdf` |
-| Favicon / logo | `assets/icons/` | `favicon.ico` |
+Built as both a public-facing portfolio and a proof of concept that a well-crafted static site can look and perform as well as any framework-based one.
 
-## Convención de nombres
+---
 
-- Todo en **minúsculas** y sin espacios. Usa guiones (`kebab-case`).
-  - Bien: `cert-santander.png`, `proyecto-exoesqueleto.jpg`
-  - Mal: `Cert Santander.png`, `Proyecto Exoesqueleto.JPG`
-- Sé descriptivo pero corto. Si es un certificado, prefijo `cert-` ayuda a encontrarlo.
-- Para proyectos, usa el nombre del proyecto. Si hay varias imágenes, numera: `proyecto-01.jpg`, `proyecto-02.jpg`.
+## What's inside
 
-## Formatos recomendados
+| Section | Content |
+|---|---|
+| Hero | Particle network animation (canvas), animated counters, floating project cards |
+| About | Bio, profile, and skill tags |
+| Portfolio | Project cards with filter by category, 3D tilt effect, certificate modal viewer |
+| Skills | Tech stack organized by domain with icons |
+| Experience | Timeline — Borregos Racing & SHIELD research |
+| Education | ITESM, certifications, competition credentials |
+| Contact | Email, GitHub, LinkedIn |
 
-- **Fotos**: `.jpg` o `.webp` (más livianos que PNG). Comprime antes de subir (TinyPNG, Squoosh).
-- **Certificados**: `.png` si es imagen, `.pdf` si tiene texto seleccionable.
-- **CV**: siempre `.pdf` con nombre `cv.pdf` (para que el link no cambie).
-- **Íconos**: `.svg` cuando se pueda (escalan sin perder calidad).
+---
 
-## Tamaños objetivo
+## Tech stack
 
-- Imágenes de proyectos: máx 1600px de ancho, <300 KB.
-- Foto de perfil: 800×800 px, <150 KB.
-- CV: <2 MB.
+- **HTML5** — semantic structure, accessibility attributes
+- **CSS3** — custom properties, grid/flexbox layout, scroll-driven animations
+- **JavaScript (ES6+)** — canvas particle system, Intersection Observer, typewriter, modal viewer
+- **No frameworks. No dependencies. No build step.**
 
-Páginas web lentas pierden visitantes. Comprimir imágenes es lo que más mueve la aguja.
+---
 
-## Cómo correr el sitio localmente
+## Highlights
 
-Opción rápida (si tienes Python):
+- 🏆 Shell Eco-marathon Brazil 2025 — **2nd place**, 373.2 km/kWh (Prototype Battery-Electric)
+- 🏆 Shell Eco-marathon Americas 2025 — **2nd place**, 196.8 mi/kWh
+- 🧠 NVIDIA Deep Learning Institute — Fundamentals of Deep Learning
+- 🦿 Chairless Chair — passive lower-limb exoskeleton (in progress)
+
+---
+
+## Run locally
+
 ```bash
 python -m http.server 8000
+# then open http://localhost:8000
 ```
-Abre http://localhost:8000
 
-## Pendientes
+---
 
-- [x] Links reales de GitHub, LinkedIn y email configurados.
-- [x] CV real en `assets/documents/cv.pdf`.
-- [ ] Extraer CSS y JS del `index.html` a `assets/css/` y `assets/js/` cuando crezca el proyecto.
-- [ ] Agregar favicon (`assets/icons/favicon.ico`).
-- [ ] Optimizar imágenes con TinyPNG / Squoosh antes de subir.
+## Project structure
+
+```
+portfolio/
+├── index.html
+├── .gitignore
+├── README.md
+└── assets/
+    ├── css/styles.css
+    ├── js/main.js
+    ├── images/
+    │   ├── profile/
+    │   ├── events/
+    │   └── projects/
+    ├── certificates/
+    ├── documents/cv.pdf
+    └── icons/favicon.ico
+```
+
+---
+
+## Contact
+
+**Carlos Velasco** · Mechatronics Engineering · ITESM Monterrey  
+[vmcarlos024@gmail.com](mailto:vmcarlos024@gmail.com) · [LinkedIn](https://www.linkedin.com/in/carlos-velasco-moreno) · [GitHub](https://github.com/CharlsMex24)
