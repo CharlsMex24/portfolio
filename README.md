@@ -38,10 +38,10 @@ Built as both a public-facing portfolio and a proof of concept that a well-craft
 
 ## Highlights
 
-- 🏆 Shell Eco-marathon Brazil 2025 — **2nd place**, 373.2 km/kWh (Prototype Battery-Electric)
-- 🏆 Shell Eco-marathon Americas 2025 — **2nd place**, 196.8 mi/kWh
-- 🧠 NVIDIA Deep Learning Institute — Fundamentals of Deep Learning
-- 🦿 Chairless Chair — passive lower-limb exoskeleton (in progress)
+-  Shell Eco-marathon Brazil 2025 — **2nd place**, 373.2 km/kWh (Prototype Battery-Electric)
+-  Shell Eco-marathon Americas 2025 — **2nd place**, 196.8 mi/kWh
+-  NVIDIA Deep Learning Institute — Fundamentals of Deep Learning
+-  Chairless Chair — passive lower-limb exoskeleton (in progress)
 
 ---
 
