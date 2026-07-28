@@ -25,6 +25,7 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+CLAUDE.md
 
 # ── Node / package managers ───────────────────────────────────────────────────
 node_modules/
