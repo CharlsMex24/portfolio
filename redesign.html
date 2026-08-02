@@ -88,7 +88,7 @@ nav.stuck{background:rgba(15,15,15,.82);backdrop-filter:blur(14px);border-bottom
    LAYOUT
 ═══════════════════════════════════════════════════════ */
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}
-section{position:relative}
+section{position:relative;scroll-margin-top:68px}
 .sec{padding:11rem 0}
 
 .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:5.5rem}
@@ -203,38 +203,76 @@ h1 .l2 em{font-style:normal;color:var(--txt-3);font-weight:200}
 .env span:hover{border-color:var(--steel-dim);color:var(--txt)}
 
 /* ═══════ 02 · PROYECTOS ═══════ */
-.pj-lg{grid-column:span 7;grid-row:span 2;display:flex;flex-direction:column;padding:0}
-.pj-sm{grid-column:span 5;display:flex;flex-direction:column}
+/* pestañas de filtro */
+.tabs{display:flex;flex-wrap:wrap;border:1px solid var(--line);width:max-content;max-width:100%;margin-bottom:4.5rem}
+.tab{
+  position:relative;background:transparent;border:0;border-left:1px solid var(--line);
+  padding:1.05rem 1.75rem;color:var(--txt-3);cursor:pointer;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  transition:color .3s var(--ease),background .3s var(--ease);
+}
+.tab:first-child{border-left:0}
+.tab::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:1px;background:var(--steel);transform:scaleX(0);transition:transform .45s var(--ease)}
+.tab:hover{color:var(--txt)}
+.tab.on{color:var(--txt);background:var(--panel)}
+.tab.on::before{transform:scaleX(1)}
+.tab i{font-style:normal;color:var(--steel-dim);margin-left:.65rem;font-size:10px}
 
-.pj-media{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--line);background:#0b0b0b}
-.pj-media img{
+/* rejilla de tarjetas */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+/* podio: el destacado central sobresale solo cuando no hay filtro activo */
+.grid3[data-mode="all"] > .card:nth-child(1),
+.grid3[data-mode="all"] > .card:nth-child(3){margin-top:3.5rem}
+
+.card{
+  border:1px solid var(--line);background:var(--panel);
+  display:flex;flex-direction:column;
+  transition:background .4s var(--ease),border-color .4s var(--ease);
+}
+.card:hover{background:var(--panel-2);border-color:var(--steel-dim)}
+.card.off{display:none}
+
+.card-media{position:relative;height:215px;overflow:hidden;border-bottom:1px solid var(--line);background:#0b0b0b}
+.mid .card-media{height:330px}
+.card-media img{
   width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) contrast(1.05) brightness(.72);
-  transform:scale(1.02);
+  filter:grayscale(1) brightness(.7) contrast(1.05);transform:scale(1.02);
   transition:filter .7s var(--ease),transform .9s var(--ease);
 }
-.pj-lg:hover .pj-media img{filter:grayscale(.15) contrast(1) brightness(.92);transform:scale(1.05)}
-.pj-flag{
-  position:absolute;left:0;bottom:0;
-  background:var(--bg);border-top:1px solid var(--line);border-right:1px solid var(--line);
-  padding:.85rem 1.4rem;color:var(--steel);
-}
-.pj-inner{padding:3.25rem;display:flex;flex-direction:column;flex:1}
+.card:hover .card-media img{filter:grayscale(.08) brightness(.95) contrast(1);transform:scale(1.05)}
+.card-media.fit img{object-fit:contain;background:#0b0b0b;filter:grayscale(1) brightness(.8)}
+.card:hover .card-media.fit img{filter:grayscale(0) brightness(1);transform:scale(1.02)}
 
-.pj-title{
-  font-family:var(--f-display);font-weight:700;letter-spacing:-.035em;line-height:1.08;
-  font-size:clamp(1.55rem,2.6vw,2.35rem);margin-bottom:1.5rem;
+.chip{
+  position:absolute;left:0;bottom:0;background:var(--bg);
+  border-top:1px solid var(--line);border-right:1px solid var(--line);
+  padding:.7rem 1.15rem;color:var(--steel);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
 }
-.pj-sm .pj-title{font-size:1.5rem;font-weight:500}
-.pj-desc{color:var(--txt-2);font-size:14px;line-height:1.8;max-width:58ch}
+.chip.alt{color:var(--txt-2)}
+
+.card-in{padding:2.5rem;display:flex;flex-direction:column;flex:1}
+.mid .card-in{padding:3rem}
+.card .cell-hd{margin-bottom:1.6rem}
+.card-title{
+  font-family:var(--f-display);font-weight:500;letter-spacing:-.03em;line-height:1.15;
+  font-size:1.3rem;margin-bottom:1.25rem;
+}
+.mid .card-title{font-weight:700;font-size:1.85rem;letter-spacing:-.04em;margin-bottom:1.5rem}
+
+.pj-desc{color:var(--txt-2);font-size:14px;line-height:1.8}
 .pj-desc b{color:var(--txt);font-weight:500}
 
-.pj-data{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2.75rem}
-.pj-data > div{background:var(--panel);padding:1.6rem 1.35rem}
-.pj-data .v{font-family:var(--f-display);font-size:1.15rem;font-weight:500;letter-spacing:-.02em;line-height:1}
-.pj-data .k{color:var(--txt-3);font-size:10px;font-family:var(--f-mono);letter-spacing:.12em;text-transform:uppercase;margin-top:.55rem}
+.pj-data{display:flex;border:1px solid var(--line);margin-top:2rem}
+.pj-data > div{flex:1;padding:1.35rem 1rem;border-left:1px solid var(--line);min-width:0}
+.pj-data > div:first-child{border-left:0}
+.pj-data .v{font-family:var(--f-display);font-size:1.1rem;font-weight:500;letter-spacing:-.02em;line-height:1}
+.pj-data .k{color:var(--txt-3);font-size:9.5px;font-family:var(--f-mono);letter-spacing:.1em;text-transform:uppercase;margin-top:.6rem;line-height:1.5}
 
-.pj-foot{margin-top:auto;padding-top:2.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.pj-foot{margin-top:auto;padding-top:2.25rem;display:flex;align-items:center;justify-content:space-between;gap:1.25rem;flex-wrap:wrap}
+
+.empty{display:none;color:var(--txt-3);border:1px solid var(--line);padding:3.5rem;text-align:center}
+.empty.on{display:block}
 .tags{display:flex;flex-wrap:wrap;gap:.55rem}
 .tags span{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-3);border:1px solid var(--line-soft);padding:.4rem .75rem}
 .pj-link{display:inline-flex;align-items:center;gap:.7rem;color:var(--txt-2);font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;transition:color .3s var(--ease)}
@@ -243,9 +281,9 @@ h1 .l2 em{font-style:normal;color:var(--txt-3);font-weight:200}
 .pj-link:hover .arrow{transform:translateX(4px)}
 
 /* bloque terminal (infra IA) */
-.term{border:1px solid var(--line);background:#0c0c0c;margin-top:2.5rem;font-family:var(--f-mono);font-size:11.5px;line-height:2.1}
+.term{background:#0b0b0b;font-family:var(--f-mono);font-size:11.5px;line-height:2.1;height:100%;display:flex;flex-direction:column}
 .term-bar{border-bottom:1px solid var(--line);padding:.7rem 1.1rem;color:var(--txt-3);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.term-body{padding:1.35rem 1.1rem;color:var(--txt-2);overflow-x:auto}
+.term-body{padding:1.35rem 1.25rem;color:var(--txt-2);overflow-x:auto;flex:1}
 .term-body .p{color:var(--steel-dim)}
 .term-body .ok{color:var(--steel)}
 .term-body .c{color:var(--txt-3)}
@@ -289,9 +327,13 @@ footer{padding:4rem 0 5rem;display:flex;justify-content:space-between;gap:1.5rem
    RESPONSIVE
 ═══════════════════════════════════════════════════════ */
 @media (max-width:1040px){
-  .pj-lg,.pj-sm,.st-6{grid-column:span 12}
-  .pj-lg{grid-row:auto}
+  .st-6{grid-column:span 12}
   .sec-note{display:none}
+  .grid3{grid-template-columns:repeat(2,1fr)}
+  .grid3[data-mode="all"] > .card:nth-child(1),
+  .grid3[data-mode="all"] > .card:nth-child(3){margin-top:0}
+  .grid3[data-mode="all"] > .mid{grid-column:span 2}
+  .mid .card-media{height:300px}
 }
 @media (max-width:860px){
   :root{--pad-x:1.5rem}
@@ -299,7 +341,17 @@ footer{padding:4rem 0 5rem;display:flex;justify-content:space-between;gap:1.5rem
   nav{height:60px}
   .nav-links{gap:1.4rem;font-size:10px}
   .sec{padding:7rem 0}
-  .cell,.pj-inner{padding:2.25rem}
+  .cell,.card-in,.mid .card-in{padding:2.25rem}
+  .grid3{grid-template-columns:1fr;gap:1.25rem}
+  .grid3[data-mode="all"] > .mid{grid-column:auto}
+  .mid .card-media{height:240px}
+  .mid .card-title{font-size:1.55rem}
+  .tabs{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .tab{padding:.95rem .5rem;text-align:center}
+  .tab:nth-child(odd){border-left:0}
+  .tab:nth-child(even){border-left:1px solid var(--line)}
+  .tab:nth-child(n+3){border-top:1px solid var(--line)}
+  .tab i{margin-left:.4rem}
   .hero-strip{grid-template-columns:repeat(2,1fr)}
   .hero-strip .cell{padding:1.75rem var(--pad-x);border-top:1px solid var(--line)}
   .hero-strip .cell:nth-child(odd){border-left:0}
@@ -456,96 +508,312 @@ footer{padding:4rem 0 5rem;display:flex;justify-content:space-between;gap:1.5rem
       <p class="sec-note rv" style="--d:.12s">Tres frentes: eficiencia energética, ergonomía industrial e infraestructura de IA.</p>
     </header>
 
-    <div class="bento rv" style="--d:.06s">
+    <div class="tabs rv" id="tabs" style="--d:.06s">
+      <button class="tab on" data-f="all">Todos <i class="num"></i></button>
+      <button class="tab" data-f="proyecto">Proyectos <i class="num"></i></button>
+      <button class="tab" data-f="competencia">Competencias <i class="num"></i></button>
+      <button class="tab" data-f="certificado">Certificados <i class="num"></i></button>
+    </div>
 
-      <!-- Proyecto destacado -->
-      <article class="cell pj-lg">
-        <div class="pj-media">
-          <img src="assets/images/events/Brazil2025.jpg" alt="Vehículo prototipo en Shell Eco-marathon Brasil 2025" onerror="this.remove()">
-          <span class="pj-flag mono">Competencia · 2025</span>
+    <!-- ─── TRÍO DESTACADO + RESTO (una sola rejilla, para que el filtro no deje huecos) ─── -->
+    <div class="grid3 rv" id="work" data-mode="all" style="--d:.06s">
+
+      <!-- Sitio Borregos Racing -->
+      <article class="card" data-cat="proyecto">
+        <div class="card-media">
+          <img src="assets/images/projects/borregos-racing-site.jpg" alt="Sitio web de Borregos Racing — Shell Eco-marathon" loading="lazy" onerror="this.remove()">
+          <span class="chip">Proyecto · Web</span>
         </div>
-        <div class="pj-inner">
-          <h3 class="pj-title">Shell<br>Eco-Marathon</h3>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Front-end</span>
+            <span class="cell-n mono num">02</span>
+          </div>
+          <h3 class="card-title">Sitio web<br>Borregos Racing</h3>
           <p class="pj-desc">
-            <b>Récord nacional de eficiencia energética</b> con Borregos Racing en la categoría
-            Prototype Battery-Electric. Trabajo sobre optimización de sistemas de energía e
-            integración de subsistemas del vehículo, llevado a pista en las ediciones de
-            Americas y Brasil.
+            Página oficial del equipo para <b>Shell Eco-marathon</b>: galería, palmarés,
+            perfiles de integrantes y patrocinadores. Construida en <b>HTML, CSS y JavaScript</b>
+            sobre Bootstrap, con navegación por scroll-spy y diseño responsivo.
           </p>
           <div class="pj-data">
-            <div><div class="v num">373.2</div><div class="k">km / kWh</div></div>
-            <div><div class="v num">2.º</div><div class="k">Brasil</div></div>
-            <div><div class="v num">2.º</div><div class="k">Americas</div></div>
+            <div><div class="v num">07</div><div class="k">Secciones</div></div>
+            <div><div class="v">JS</div><div class="k">Vanilla</div></div>
+            <div><div class="v">BS4</div><div class="k">Bootstrap</div></div>
           </div>
           <div class="pj-foot">
             <div class="tags">
-              <span>Powertrain eléctrico</span>
-              <span>Telemetría</span>
-              <span>Integración</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
             </div>
-            <a class="pj-link" href="assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Certificado <span class="arrow">↗</span></a>
           </div>
         </div>
       </article>
 
-      <!-- Exoesqueleto -->
-      <article class="cell pj-sm">
-        <div class="cell-hd">
-          <span class="cell-cat mono">Hardware · Diseño</span>
-          <span class="cell-n mono num">02</span>
+      <!-- Exoesqueleto — destacado central -->
+      <article class="card mid" data-cat="proyecto">
+        <div class="card-media">
+          <img src="assets/images/projects/exoskeleton.jpeg" alt="Exoesqueleto ajustable de miembro inferior" loading="lazy" onerror="this.remove()">
+          <span class="chip">Proyecto · Hardware</span>
         </div>
-        <h3 class="pj-title">Exoesqueleto Ajustable</h3>
-        <p class="pj-desc">
-          Prototipo pasivo de miembro inferior diseñado en <b>SolidWorks</b> para
-          ergonomía industrial. Un mecanismo de bloqueo en la rodilla transfiere el peso
-          corporal al suelo y sostiene una postura semi-sentada, eliminando la carga
-          muscular estática en jornadas de pie prolongadas.
-        </p>
-        <div class="pj-data">
-          <div><div class="v">Pasivo</div><div class="k">Mecanismo</div></div>
-          <div><div class="v">Aluminio</div><div class="k">Estructura</div></div>
-          <div><div class="v num">40%</div><div class="k">Avance</div></div>
-        </div>
-        <div class="pj-foot">
-          <div class="tags">
-            <span>SolidWorks</span>
-            <span>Biomecánica</span>
-            <span>Impresión 3D</span>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Destacado</span>
+            <span class="cell-n mono num">01</span>
+          </div>
+          <h3 class="card-title">Exoesqueleto<br>Ajustable</h3>
+          <p class="pj-desc">
+            Prototipo pasivo de miembro inferior diseñado en <b>SolidWorks</b> para
+            ergonomía industrial. Un mecanismo de bloqueo en la rodilla transfiere el peso
+            corporal directamente al suelo y sostiene una postura semi-sentada, eliminando
+            la carga muscular estática en jornadas de pie prolongadas.
+          </p>
+          <div class="pj-data">
+            <div><div class="v">Pasivo</div><div class="k">Mecanismo</div></div>
+            <div><div class="v">Aluminio</div><div class="k">Estructura</div></div>
+            <div><div class="v num">40%</div><div class="k">Avance</div></div>
+          </div>
+          <div class="pj-foot">
+            <div class="tags">
+              <span>SolidWorks</span>
+              <span>Biomecánica</span>
+              <span>Impresión 3D</span>
+              <span>Ergonomía</span>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- Infraestructura IA -->
-      <article class="cell pj-sm">
-        <div class="cell-hd">
-          <span class="cell-cat mono">Software · IA</span>
-          <span class="cell-n mono num">03</span>
+      <!-- NVIDIA -->
+      <article class="card" data-cat="certificado">
+        <div class="card-media fit">
+          <img src="assets/certificates/cert-nvidia.jpeg" alt="Certificado NVIDIA Fundamentals of Deep Learning" loading="lazy" onerror="this.remove()">
+          <span class="chip">Certificado</span>
         </div>
-        <h3 class="pj-title">Infraestructura de IA</h3>
-        <p class="pj-desc">
-          Integración de un <b>servidor MCP local</b> para conectar modelos de lenguaje
-          con herramientas y datos propios, sobre una base formal de
-          <b>Deep Learning certificada por NVIDIA</b> (Deep Learning Institute).
-        </p>
-        <div class="term">
-          <div class="term-bar">mcp · local</div>
-          <div class="term-body">
-            <div><span class="p">$</span> mcp serve --local</div>
-            <div><span class="ok">▸</span> tools registered <span class="c">/ 12</span></div>
-            <div><span class="ok">▸</span> context bridge <span class="c">ready</span></div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">NVIDIA DLI</span>
+            <span class="cell-n mono num">03</span>
+          </div>
+          <h3 class="card-title">Fundamentals of<br>Deep Learning</h3>
+          <p class="pj-desc">
+            Certificación del <b>NVIDIA Deep Learning Institute</b>: fundamentos de redes
+            neuronales, técnicas de entrenamiento y despliegue de modelos acelerados por GPU.
+          </p>
+          <div class="pj-data">
+            <div><div class="v">NVIDIA</div><div class="k">Emisor</div></div>
+            <div><div class="v num">2025</div><div class="k">Año</div></div>
+          </div>
+          <div class="pj-foot">
+            <div class="tags">
+              <span>Deep Learning</span>
+              <span>GPU</span>
+            </div>
+            <a class="pj-link" href="assets/certificates/cert-nvidia.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
           </div>
         </div>
-        <div class="pj-foot">
-          <div class="tags">
-            <span>MCP</span>
-            <span>Python</span>
-            <span>Deep Learning</span>
+      </article>
+
+      <!-- Shell Brasil -->
+      <article class="card" data-cat="competencia">
+        <div class="card-media">
+          <img src="assets/images/events/Brazil2025.jpg" alt="Shell Eco-marathon Brasil 2025" loading="lazy" onerror="this.remove()">
+          <span class="chip">Competencia</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Shell Eco-marathon</span>
+            <span class="cell-n mono num">Ago 2025</span>
           </div>
-          <a class="pj-link" href="assets/certificates/cert-nvidia.pdf" target="_blank" rel="noopener">Certificado <span class="arrow">↗</span></a>
+          <h3 class="card-title">Brasil 2025</h3>
+          <p class="pj-desc">
+            <b>2.º lugar</b> en Prototype Battery-Electric con Borregos Racing.
+            Récord nacional de eficiencia energética del equipo.
+          </p>
+          <div class="pj-data">
+            <div><div class="v num">373.2</div><div class="k">km / kWh</div></div>
+            <div><div class="v num">2.º</div><div class="k">Lugar</div></div>
+          </div>
+          <div class="pj-foot">
+            <div class="tags"><span>Powertrain</span><span>Integración</span></div>
+            <a class="pj-link" href="assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Shell Americas -->
+      <article class="card" data-cat="competencia">
+        <div class="card-media">
+          <img src="assets/images/events/americas2025.jpg" alt="Shell Eco-marathon Americas 2025" loading="lazy" onerror="this.remove()">
+          <span class="chip">Competencia</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Shell Eco-marathon</span>
+            <span class="cell-n mono num">Abr 2025</span>
+          </div>
+          <h3 class="card-title">Americas 2025</h3>
+          <p class="pj-desc">
+            <b>2.º lugar</b> en Prototype Battery-Electric. Optimización de sistemas de
+            energía e integración de subsistemas del vehículo.
+          </p>
+          <div class="pj-data">
+            <div><div class="v num">196.8</div><div class="k">mi / kWh</div></div>
+            <div><div class="v num">2.º</div><div class="k">Lugar</div></div>
+          </div>
+          <div class="pj-foot">
+            <div class="tags"><span>Telemetría</span><span>Pruebas</span></div>
+            <a class="pj-link" href="assets/certificates/cert-shell-americas.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Infraestructura de IA -->
+      <article class="card" data-cat="proyecto">
+        <div class="card-media">
+          <div class="term">
+            <div class="term-bar">mcp · local</div>
+            <div class="term-body">
+              <div><span class="p">$</span> mcp serve --local</div>
+              <div><span class="ok">▸</span> tools registered <span class="c">/ 12</span></div>
+              <div><span class="ok">▸</span> context bridge <span class="c">ready</span></div>
+            </div>
+          </div>
+          <span class="chip">Proyecto · IA</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Software · IA</span>
+            <span class="cell-n mono num">2026</span>
+          </div>
+          <h3 class="card-title">Infraestructura de IA</h3>
+          <p class="pj-desc">
+            Integración de un <b>servidor MCP local</b> para conectar modelos de lenguaje
+            con herramientas y datos propios.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>MCP</span><span>Python</span><span>Linux</span></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- VibeMap -->
+      <article class="card" data-cat="proyecto">
+        <div class="card-media">
+          <img src="assets/images/projects/vibemap.jpg" alt="VibeMap — visualizador de arquitectura" loading="lazy" onerror="this.remove()">
+          <span class="chip">Proyecto · Hackathon</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">HackaDays · Tec</span>
+            <span class="cell-n mono num">2026</span>
+          </div>
+          <h3 class="card-title">VibeMap</h3>
+          <p class="pj-desc">
+            Visualizador de arquitectura de código: sueltas una carpeta y devuelve un mapa
+            interactivo en Mermaid con detalle por archivo. Construido en <b>8 horas</b>.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>React</span><span>TypeScript</span><span>Gemini API</span></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Agentforce -->
+      <article class="card" data-cat="certificado">
+        <div class="card-media fit">
+          <img src="assets/certificates/cert-salesforce-agentforce.jpg" alt="Certificado Salesforce Agentforce" loading="lazy" onerror="this.remove()">
+          <span class="chip">Certificado</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Salesforce</span>
+            <span class="cell-n mono num">May 2026</span>
+          </div>
+          <h3 class="card-title">IA y Agentforce</h3>
+          <p class="pj-desc">
+            20 horas de teoría y práctica dentro del ecosistema Salesforce: construcción de
+            agentes, diseño de prompts y el motor de razonamiento Atlas.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>Agentes IA</span><span>Prompting</span></div>
+            <a class="pj-link" href="assets/certificates/cert-salesforce-agentforce.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ICH GCP -->
+      <article class="card" data-cat="certificado">
+        <div class="card-media fit">
+          <img src="assets/certificates/cert-gcp.jpg" alt="Certificado ICH Good Clinical Practice" loading="lazy" onerror="this.remove()">
+          <span class="chip">Certificado</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Global Health Network</span>
+            <span class="cell-n mono num">May 2026</span>
+          </div>
+          <h3 class="card-title">ICH Good Clinical<br>Practice E6(R3)</h3>
+          <p class="pj-desc">
+            Estándar internacional de conducta ética y científica en ensayos clínicos.
+            Completado al <b>100%</b> como parte de la formación de becarios de SHIELD.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>Investigación</span><span>ICH E6(R3)</span></div>
+            <a class="pj-link" href="assets/certificates/cert-gcp.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Science of Exercise -->
+      <article class="card" data-cat="certificado">
+        <div class="card-media fit">
+          <img src="assets/certificates/cert-science-exercise.jpg" alt="Certificado Science of Exercise" loading="lazy" onerror="this.remove()">
+          <span class="chip">Certificado</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">CU Boulder</span>
+            <span class="cell-n mono num">May 2026</span>
+          </div>
+          <h3 class="card-title">Science of Exercise</h3>
+          <p class="pj-desc">
+            Fisiología del ejercicio: respuesta cardiovascular y metabólica, sistemas de
+            energía y fatiga. Base directa del trabajo en el exoesqueleto.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>Fisiología</span><span>Coursera</span></div>
+            <a class="pj-link" href="assets/certificates/cert-science-exercise.pdf" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Santander -->
+      <article class="card" data-cat="certificado">
+        <div class="card-media fit">
+          <img src="assets/certificates/cert-santander.png" alt="Certificado Santander Open Academy" loading="lazy" onerror="this.remove()">
+          <span class="chip">Certificado</span>
+        </div>
+        <div class="card-in">
+          <div class="cell-hd">
+            <span class="cell-cat mono">Santander Open Academy</span>
+            <span class="cell-n mono num">2025</span>
+          </div>
+          <h3 class="card-title">Introducción a la<br>Ingeniería en IA</h3>
+          <p class="pj-desc">
+            Fundamentos de machine learning, redes neuronales e IA aplicada a problemas
+            de ingeniería.
+          </p>
+          <div class="pj-foot">
+            <div class="tags"><span>Machine Learning</span><span>Redes neuronales</span></div>
+            <a class="pj-link" href="assets/certificates/cert-santander.png" target="_blank" rel="noopener">Ver <span class="arrow">↗</span></a>
+          </div>
         </div>
       </article>
 
     </div>
+
+    <p class="empty mono" id="empty">Sin resultados en esta categoría.</p>
   </div>
 </section>
 
@@ -620,6 +888,39 @@ footer{padding:4rem 0 5rem;display:flex;justify-content:space-between;gap:1.5rem
     }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
     items.forEach(function(el){ io.observe(el); });
   }
+
+  /* ── pestañas de filtro ── */
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card[data-cat]'));
+  var tabs  = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var empty = document.getElementById('empty');
+  var work  = document.getElementById('work');
+
+  // los contadores salen del DOM, no de números escritos a mano
+  tabs.forEach(function(t){
+    var f = t.dataset.f;
+    var n = f === 'all' ? cards.length : cards.filter(function(c){ return c.dataset.cat === f; }).length;
+    var i = t.querySelector('i');
+    if(i) i.textContent = String(n).padStart(2,'0');
+  });
+
+  function applyFilter(f){
+    var shown = 0;
+    cards.forEach(function(c){
+      var vis = (f === 'all' || c.dataset.cat === f);
+      c.classList.toggle('off', !vis);
+      if(vis) shown++;
+    });
+    work.dataset.mode = f;               // el podio solo aplica en "Todos"
+    work.style.display = shown ? '' : 'none';
+    empty.classList.toggle('on', shown === 0);
+  }
+
+  document.getElementById('tabs').addEventListener('click', function(e){
+    var t = e.target.closest('.tab');
+    if(!t) return;
+    tabs.forEach(function(x){ x.classList.toggle('on', x === t); });
+    applyFilter(t.dataset.f);
+  });
 
   /* ── link activo en el nav ── */
   var links = {};
