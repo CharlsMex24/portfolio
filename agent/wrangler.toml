@@ -1,0 +1,21 @@
+name = "carlos-portfolio-agent"
+main = "src/worker.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Model is a variable so it can be changed without touching code (e.g. "claude-haiku-4-5" is cheaper).
+MODEL = "claude-opus-5"
+# Only these pages may call the agent.
+ALLOWED_ORIGINS = "https://charlsmex24.github.io,http://localhost:8770"
+
+# At most 6 questions per minute per visitor IP (per Cloudflare location; permissive by design).
+[[ratelimits]]
+name = "ASK_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 6
+  period = 60
+
+# The API key is a secret, never in this file:  npx wrangler secret put ANTHROPIC_API_KEY

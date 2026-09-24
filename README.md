@@ -1,85 +1,53 @@
-# Carlos Velasco — Portfolio
+# Carlos Velasco, portfolio
 
-> Personal portfolio and evidence showcase built from scratch with vanilla HTML, CSS, and JavaScript.  
-> Live at **[charlsmex24.github.io/portfolio](https://charlsmex24.github.io/portfolio)**
+Live at **[charlsmex24.github.io/portfolio](https://charlsmex24.github.io/portfolio)**
 
----
-
-## About
-
-This site is my personal engineering portfolio — a single-page application that documents my academic work, competition results, certifications, and ongoing projects. Everything here is real: no template, no framework, no boilerplate.
-
-Built as both a public-facing portfolio and a proof of concept that a well-crafted static site can look and perform as well as any framework-based one.
-
----
+Plain HTML, CSS and JavaScript with no build step, hosted on GitHub Pages. Built with Claude Code as an AI
+pair programmer: I set the direction and the content, checked every fact and reviewed every screen.
 
 ## What's inside
 
-| Section | Content |
+| Part | How it works |
 |---|---|
-| Hero | Name, current role, photo of the exoskeleton prototype |
-| About | Short bio that lights up as you scroll, key facts |
-| Work | Exoskeleton case study: sticky media that follows the steps (video, CAD, FEA, prototype) |
-| Agent | The Mostla agent idea plus a live quote-verifier demo |
-| More projects | VibeMap, QuestBody, Borregos website, clinic simulation (horizontal scroll) |
-| Racing | Shell Eco-marathon 2025 results with certificates |
-| Experience | Mostla, SHIELD, Borregos Racing, Tec de Monterrey |
-| Skills | Skills by area and certifications with a preview viewer |
-| Contact | Email (copy button), LinkedIn, GitHub, resume |
+| Intro | First visit only. Real loading percentage, then the robot assembles from a point cloud of its own vertices and stands up. |
+| Hero | A Unitree Go2 (MuJoCo Menagerie model) in three.js. Its feet stay planted while its body turns toward the cursor; each leg is solved with analytic inverse kinematics every frame (`assets/js/go2-kinematics.js`). Click and it waves. |
+| Anatomy | Pinned scroll scene: the camera orbits and the robot comes apart, with callouts for five disciplines. |
+| Projects | A sphere of project cards you can drag (with inertia); click a card to open that project. |
+| Mostla agent | A quote verifier demo: only answers whose quote really appears in the source get through. |
+| Ask my portfolio | A grounded Claude agent. A Cloudflare Worker (`agent/`) sends Claude a knowledge base about me with citations on, then checks every quote before showing it. Explained in [`docs/agente.md`](docs/agente.md). |
+| Exoskeleton | A brush that reveals the real prototype under its line drawing. |
+| Ending | My portrait as points that assemble when you arrive and move out of the cursor's way. |
 
----
+## Stack
 
-## Tech stack
-
-- **HTML, CSS, JavaScript**, no build step
-- **GSAP + ScrollTrigger** (cdnjs) for scroll animations and the pinned horizontal section
-- **Lenis** (jsDelivr) for smooth scrolling
-- Geist and Geist Mono (Google Fonts), Phosphor icons inlined as an SVG sprite
-- Follows the OS light/dark setting and `prefers-reduced-motion` (fades only, no movement).
-  Works without the CDNs as a static page.
-
----
-
-## Highlights
-
--  Shell Eco-marathon Brazil 2025 — **2nd place**, 373.2 km/kWh (Prototype Battery-Electric)
--  Shell Eco-marathon Americas 2025 — **2nd place**, 196.8 mi/kWh
--  NVIDIA Deep Learning Institute — Fundamentals of Deep Learning
--  Chairless Chair — passive lower-limb exoskeleton, designed, simulated and printed at full scale (2026)
-
----
+- three.js 0.186 (importmap from jsDelivr), GSAP + ScrollTrigger, Lenis
+- Archivo (Google Fonts)
+- Agent: Cloudflare Worker + Anthropic SDK (`claude-opus-5`, Citations, prompt caching)
+- Respects `prefers-reduced-motion` (fades only, no pinning or scroll-driven motion) and works without WebGL
 
 ## Run locally
 
 ```bash
-python -m http.server 8000
-# then open http://localhost:8000
+python -m http.server 8770
 ```
 
----
+Agent (optional, answers offline without an API key):
 
-## Project structure
-
-```
-portfolio/
-├── index.html
-├── .gitignore
-├── README.md
-└── assets/
-    ├── css/styles.css
-    ├── js/main.js
-    ├── images/
-    │   ├── profile/
-    │   ├── events/
-    │   └── projects/
-    ├── certificates/
-    ├── documents/cv.pdf
-    └── icons/favicon.ico
+```bash
+cd agent && npm install && npm run dev
 ```
 
----
+Tests (verifier, offline search, leg kinematics):
+
+```bash
+cd agent && npm test
+```
+
+## Credits
+
+- Unitree Go2 model: [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie/tree/main/unitree_go2), BSD-3-Clause, © Unitree Robotics (`assets/models/LICENSE-unitree-go2.txt`)
+- Ideas taken from: [behfar.dev](https://behfar.dev) (portrait as points), [bleibtgleich.dev](https://bleibtgleich.dev) (reveal brush, project sphere)
 
 ## Contact
 
-**Carlos Velasco** · Mechatronics Engineering · ITESM Monterrey  
 [vmcarlos024@gmail.com](mailto:vmcarlos024@gmail.com) · [LinkedIn](https://www.linkedin.com/in/carlos-velasco-moreno) · [GitHub](https://github.com/CharlsMex24)

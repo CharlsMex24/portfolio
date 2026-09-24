@@ -1,441 +1,362 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="js-motion">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Carlos Velasco | Mechatronics Engineering</title>
-<meta name="description" content="Mechatronics engineering student at Tec de Monterrey. AI agents at Mostla, a passive exoskeleton, biometric wearables and two Shell Eco-marathon podiums.">
-<meta name="theme-color" content="#f3f3f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0f10" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Mechatronics engineering student at Tec de Monterrey. AI agents at Mostla, a passive exoskeleton, biomechanics research and two Shell Eco-marathon podiums.">
+<meta name="theme-color" content="#e4602d">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Carlos Velasco | Mechatronics Engineering">
-<meta property="og:description" content="AI agents, wearable hardware and the software in between.">
+<meta property="og:description" content="I build machines and the code that moves them.">
 <meta property="og:url" content="https://charlsmex24.github.io/portfolio/">
-<meta property="og:image" content="https://charlsmex24.github.io/portfolio/assets/images/projects/exo-stairs.jpg">
+<meta property="og:image" content="https://charlsmex24.github.io/portfolio/assets/images/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/icons/favicon-180.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css">
 <link rel="stylesheet" href="assets/css/styles.css">
-<link rel="preload" as="image" href="assets/images/projects/exo-stairs.jpg">
-
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js">
+<link rel="preload" href="assets/models/go2.glb" as="fetch" crossorigin>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
+} }
+</script>
 <script>
-  // Hide elements that will animate in. If the scripts never arrive,
-  // the timeout gives the content back so nothing stays invisible.
-  document.documentElement.classList.add('js-motion');
+  // The intro plays once per tab, only with motion allowed and at the top of the page. Decided here so the hero never flashes.
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && sessionStorage.getItem('introSeen') !== '1' && !location.hash) {
+      document.documentElement.classList.add('intro-on');
+    }
+  } catch (e) { /* storage blocked: no intro */ }
+  // If the scripts never arrive, give the hidden content back.
   setTimeout(function () {
-    if (!window.__motionReady) document.documentElement.classList.remove('js-motion');
-  }, 3000);
+    if (!window.__motionReady) document.documentElement.classList.remove('js-motion', 'intro-on');
+  }, 3500);
 </script>
 </head>
 <body>
 
-<!-- Phosphor Icons (regular), inlined as a sprite -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
-  <symbol id="i-out" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
-  <symbol id="i-down" viewBox="0 0 256 256"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
-  <symbol id="i-github" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></symbol>
-  <symbol id="i-linkedin" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></symbol>
-  <symbol id="i-file" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
-  <symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
-  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
-</svg>
+<canvas id="stage" aria-hidden="true"></canvas>
 
-<a class="skip" href="#main">Skip to content</a>
+<div class="intro" id="intro" aria-hidden="true">
+  <p class="intro__pct"><span id="introPct">0</span>%</p>
+  <p class="intro__label" id="introLabel">Loading the arm</p>
+  <button class="intro__skip" id="introSkip" type="button">Skip intro</button>
+</div>
 
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="nav__name" href="#top">Carlos Velasco</a>
-    <nav class="nav__links" id="navLinks" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#work" data-until="#racing">Work</a>
-      <a href="#experience" data-until="#skills">Experience</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a class="btn btn--ghost btn--sm nav__cv" href="assets/documents/cv.pdf" target="_blank" rel="noopener">
-      Resume <svg class="i" aria-hidden="true"><use href="#i-out"/></svg>
-    </a>
-    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
-      <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
-    </button>
-  </div>
-</header>
+<nav class="dock" aria-label="Sections">
+  <a class="dock__name" href="#top">Carlos Velasco</a>
+  <a href="#projects">Work</a>
+  <a href="#ask">Ask</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+  <a class="dock__cv" href="assets/documents/cv.pdf" target="_blank" rel="noopener">Resume</a>
+</nav>
 
 <main id="main">
 
-  <!-- HERO -->
-  <section class="hero wrap" id="top">
-    <div class="hero__text">
-      <p class="hero__status" data-hero><span class="pulse" aria-hidden="true"></span>Open to 2027 internships</p>
-      <h1 class="hero__name" data-split-lines>
-        <span class="line"><span>Carlos</span></span>
-        <span class="line"><span>Velasco</span></span>
-      </h1>
-      <p class="hero__sub" data-hero>Mechatronics engineering student at Tec de Monterrey. Currently building an AI agent at Mostla.</p>
-      <div class="hero__cta" data-hero>
-        <a class="btn btn--solid" href="#work">See my work <svg class="i" aria-hidden="true"><use href="#i-down"/></svg></a>
-        <a class="link" href="assets/documents/cv.pdf" target="_blank" rel="noopener">Resume <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+  <!-- HERO: the arm follows the cursor -->
+  <section class="hero" id="top">
+    <div class="hero__copy">
+      <h1 data-reveal>I build machines and the code that moves them.</h1>
+      <p class="hero__sub" data-reveal>Carlos Velasco. Mechatronics engineering student at Tec de Monterrey, currently building an AI agent at Mostla.</p>
+      <div class="hero__cta" data-reveal>
+        <a class="btn btn--ink" href="#projects">See my work</a>
+        <a class="btn btn--line" href="#ask">Ask my portfolio</a>
       </div>
     </div>
-    <figure class="hero__media">
-      <div class="hero__frame" data-reveal-clip>
-        <img src="assets/images/projects/exo-stairs.jpg" alt="Carlos sitting on a staircase while wearing his 3D-printed exoskeleton prototype" width="960" height="1280" data-parallax="8">
-      </div>
-      <figcaption data-hero>Testing my exoskeleton prototype on campus, 2026.</figcaption>
-    </figure>
+    <p class="hero__hint" id="hint">Move your cursor. The dog turns to watch it while all four feet stay planted: every leg is solved with inverse kinematics, live. Click and it waves.</p>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about wrap" id="about">
-    <p class="about__statement" data-scrub-words>I studied medicine for two years before switching to mechatronics. I still find the human body fascinating, so a lot of my work ends up close to it: an exoskeleton you wear, a wristband that reads your heart rate, motion-capture research. The rest is software, which is the part I enjoy most.</p>
-    <dl class="facts">
-      <div data-reveal>
-        <dt>Studying</dt>
-        <dd>B.S. Mechatronics Engineering at Tec de Monterrey. 5th semester, GPA 93.67/100.</dd>
+  <!-- ANATOMY: the arm comes apart on scroll -->
+  <section class="anatomy" id="anatomy" aria-labelledby="anatomy-title">
+    <div class="anatomy__pin">
+      <div class="anatomy__head">
+        <h2 id="anatomy-title">One robot, five disciplines</h2>
+        <p>A walking robot is where mechanical design, power, sensing, control and software meet. This is how my work lines up on one.</p>
+        <p class="anatomy__credit">Unitree Go2, the robot dog I'm about to start programming at Mostla. Model from Google DeepMind's MuJoCo Menagerie, BSD-3-Clause, &copy; Unitree Robotics.</p>
       </div>
-      <div data-reveal>
-        <dt>Working</dt>
-        <dd>Agentic AI Engineer Intern at Mostla, Tec's emerging technologies lab.</dd>
-      </div>
-      <div data-reveal>
-        <dt>Researching</dt>
-        <dd>Research scholar in the SHIELD group, working with biomechanics data.</dd>
-      </div>
-      <div data-reveal>
-        <dt>Speaking</dt>
-        <dd>Spanish (native) and English (full professional).</dd>
-      </div>
-    </dl>
-  </section>
-
-  <!-- FEATURED: EXOSKELETON -->
-  <section class="case" id="work" aria-labelledby="case-title">
-    <div class="wrap case__head">
-      <h2 id="case-title" data-split-words>Chairless-chair exoskeleton</h2>
-      <p data-reveal>A passive exoskeleton that locks at the knee and sends your weight to the floor, so you can sit down anywhere. Course project, 2026. I did the concept, CAD, FEA, 3D printing and assembly.</p>
-    </div>
-
-    <div class="wrap case__body">
-      <div class="case__stage" aria-hidden="true">
-        <div class="case__media case__media--video is-active" data-step-media="0">
-          <video src="assets/images/projects/exo-walk.mp4" poster="assets/images/projects/exo-walk-poster.jpg" muted loop playsinline preload="none"></video>
-        </div>
-        <div class="case__media" data-step-media="1">
-          <img src="assets/images/projects/exo-cad.jpg" alt="" loading="lazy" width="938" height="1273">
-        </div>
-        <div class="case__media case__media--shot" data-step-media="2">
-          <img src="assets/images/projects/exo-fea-stress.jpg" alt="" loading="lazy" width="660" height="457">
-        </div>
-        <div class="case__media case__media--shot" data-step-media="3">
-          <img src="assets/images/projects/exo-buckling.jpg" alt="" loading="lazy" width="660" height="457">
-        </div>
-        <div class="case__media" data-step-media="4">
-          <img src="assets/images/projects/exo-side.jpg" alt="" loading="lazy" width="960" height="1280">
-        </div>
-      </div>
-
-      <ol class="case__steps">
-        <li class="step is-active" data-step="0">
-          <h3>Walk, then sit</h3>
-          <p>The frame moves with your legs while you walk. When you sit back, the knee lock holds and the frame carries your weight down to the floor.</p>
-        </li>
-        <li class="step" data-step="1">
-          <h3>Designed in SolidWorks</h3>
-          <p>I modeled the full assembly in SolidWorks, with every link sized to my own legs.</p>
-        </li>
-        <li class="step" data-step="2">
-          <h3>Checked with FEA</h3>
-          <p>Static study with a 750&nbsp;N load on aluminum 6061-T6.</p>
-          <div class="readout">
-            <div><span class="num" data-count="64.59">64.59</span><span class="unit">MPa peak stress</span></div>
-            <div><span class="num" data-count="276">276</span><span class="unit">MPa yield strength</span></div>
-          </div>
-        </li>
-        <li class="step" data-step="3">
-          <h3>Buckling</h3>
-          <p>The legs work as columns, so I also ran a buckling study. Its first mode would need about 300 times the design load.</p>
-          <div class="readout">
-            <div><span class="num" data-count="304.88">304.88</span><span class="unit">load factor, mode 1</span></div>
-          </div>
-        </li>
-        <li class="step" data-step="4">
-          <h3>Printed and worn</h3>
-          <p>The prototype is 3D printed at full scale, braced with wooden diagonals and held on with straps. I tested it by wearing it around campus.</p>
-        </li>
+      <svg class="anatomy__leaders" id="leaders" aria-hidden="true"></svg>
+      <ol class="anatomy__labels" id="labels">
+        <li data-part="base" data-offset="-0.12 0 0.07"><h3>Mechanical design</h3><p>CAD, FEA and 3D printing. My exoskeleton went from SolidWorks to a prototype I wore on campus.</p></li>
+        <li data-part="FL_hip"><h3>Actuators and power</h3><p>Energy systems for Borregos Racing, second place twice at Shell Eco-marathon 2025.</p></li>
+        <li data-part="FR_calf" data-offset="0 0 -0.2"><h3>Sensing</h3><p>Where a foot meets the ground. At SHIELD I analyze Vicon motion capture and Tekscan pressure data in Python.</p></li>
+        <li data-part="RL_thigh"><h3>Control and firmware</h3><p>Each joint is a motor with an encoder. On STM32 and Arduino I work with encoders, interrupts and H-bridges.</p></li>
+        <li data-part="base" data-offset="0.3 0 0.03"><h3>Software and AI</h3><p>At Mostla, an AI agent that only keeps answers it can back with an exact quote.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- MOSTLA AGENT + LIVE DEMO -->
-  <section class="agent wrap" id="agent" aria-labelledby="agent-title">
-    <div class="agent__head">
-      <h2 id="agent-title" data-split-words>An AI agent that has to show its sources</h2>
-      <p data-reveal>At Mostla I'm building an agent that classifies company information. Every answer has to come with an exact quote from its source, and a deterministic verifier checks that quote before anything gets saved. No quote, no answer.</p>
-      <ul class="tags" data-reveal>
-        <li>Python</li><li>Web scraping</li><li>REST APIs</li><li>LLM tools</li><li>Evaluation sets</li><li>Tests</li>
+  <div class="paper">
+
+    <!-- PROJECT INDEX: a sphere of cards you can spin -->
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <div class="wrap projects__head">
+        <h2 id="projects-title" data-reveal>Projects</h2>
+        <p data-reveal>Each card is something I built. Spin the sphere and click a card to open that project.</p>
+      </div>
+      <div class="sphere" id="sphere">
+        <canvas aria-hidden="true"></canvas>
+        <span class="hint sphere__hint" id="sphereHint">Drag to spin, click a card</span>
+        <span class="sphere__tip" id="sphereTip" aria-hidden="true"></span>
+      </div>
+      <ul class="wrap jump" id="projectList" aria-label="Jump to a project">
+        <li><a href="#agent" data-img="card:agent">Mostla AI agent</a></li>
+        <li><a href="#ask" data-img="card:ask">Ask my portfolio</a></li>
+        <li><a href="#racing" data-img="assets/images/events/Brazil2025.jpg">Borregos Racing</a></li>
+        <li><a href="#exo" data-img="assets/images/projects/exo-side.jpg">Exoskeleton</a></li>
+        <li><a href="#questbody" data-img="assets/images/projects/questbody.jpg">QuestBody</a></li>
+        <li><a href="#more" data-img="assets/images/projects/vibemap.jpg">VibeMap</a></li>
+        <li><a href="#site" data-img="assets/images/og.jpg">This website</a></li>
+        <li hidden><a href="#exo" data-img="assets/images/projects/exo-cad.jpg">Exoskeleton CAD</a></li>
+        <li hidden><a href="#racing" data-img="assets/images/events/americas2025.jpg">Borregos Racing, Americas</a></li>
+        <li hidden><a href="#more" data-img="assets/images/projects/borregos-racing-site.jpg">Borregos Racing website</a></li>
+        <li hidden><a href="#exo" data-img="assets/images/projects/exo-fea-stress.jpg">Exoskeleton FEA</a></li>
+        <li hidden><a href="#exo" data-img="assets/images/projects/exo-walk-poster.jpg">Exoskeleton, walk test</a></li>
       </ul>
-    </div>
+    </section>
 
-    <div class="verifier" data-reveal>
-      <div class="verifier__bar">
-        <p>Try the idea. The model proposes four answers, each with a quote. Only quotes that really appear in the source get through.</p>
-        <button class="btn btn--solid btn--sm" id="runVerifier" type="button">Run verifier</button>
-      </div>
-      <div class="verifier__grid">
-        <div class="verifier__source">
-          <p class="label">Source text</p>
-          <p id="sourceText">The frame was modeled in SolidWorks and checked with a static study with a 750 N load. The result was a 64.59 MPa peak von Mises stress, below the 276 MPa yield strength of aluminum 6061-T6. The printed prototype was tested by wearing it around campus.</p>
+    <!-- CHAPTER: Mostla -->
+    <section class="chapter agent" id="agent" aria-labelledby="agent-title">
+      <div class="wrap agent__inner">
+        <div class="agent__head">
+          <p class="kicker" data-reveal>Mostla, Tec de Monterrey, since August 2026</p>
+          <h2 id="agent-title" data-reveal>An AI agent that has to show its sources</h2>
+          <p data-reveal>As an Agentic AI Engineer Intern I'm building an agent that classifies company information. Every answer has to come with an exact quote from its source, and a deterministic verifier checks that quote before anything gets saved. No quote, no answer.</p>
+          <p class="agent__stack" data-reveal>Python, web scraping, REST APIs, LLM tools, evaluation sets, tests.</p>
         </div>
-        <div class="verifier__claims">
-          <p class="label">Model answers</p>
-          <ul id="claims">
-            <li data-quote="a static study with a 750 N load"><strong>Designed for a 750 N load</strong><q>a static study with a 750 N load</q><span class="verdict" aria-live="polite"></span></li>
-            <li data-quote="the carbon fiber frame"><strong>Made of carbon fiber</strong><q>the carbon fiber frame</q><span class="verdict" aria-live="polite"></span></li>
-            <li data-quote="64.59 MPa peak von Mises stress, below the 276 MPa yield strength"><strong>Stress stays below yield</strong><q>64.59 MPa peak von Mises stress, below the 276 MPa yield strength</q><span class="verdict" aria-live="polite"></span></li>
-            <li data-quote="tested outdoors on campus"><strong>Tested outdoors</strong><q>tested outdoors on campus</q><span class="verdict" aria-live="polite"></span></li>
-          </ul>
-          <label class="verifier__own" for="ownQuote">Or test your own quote</label>
-          <div class="verifier__input">
-            <input id="ownQuote" type="text" placeholder="e.g. aluminum 6061-T6" autocomplete="off" spellcheck="false">
-            <span id="ownResult" class="verdict" aria-live="polite"></span>
+        <div class="verifier" data-reveal>
+          <div class="verifier__bar">
+            <p>Try the idea. The model proposes four answers, each with a quote. Only quotes that really appear in the source get through.</p>
+            <button class="btn btn--orange" id="runVerifier" type="button">Run verifier</button>
           </div>
+          <div class="verifier__grid">
+            <div class="verifier__source">
+              <p class="label">Source text</p>
+              <p id="sourceText">The frame was modeled in SolidWorks and checked with a static study with a 750 N load. The result was a 64.59 MPa peak von Mises stress, below the 276 MPa yield strength of aluminum 6061-T6. The printed prototype was tested by wearing it around campus.</p>
+            </div>
+            <div class="verifier__claims">
+              <p class="label">Model answers</p>
+              <ul id="claims">
+                <li data-quote="a static study with a 750 N load"><strong>Designed for a 750 N load</strong><q>a static study with a 750 N load</q><span class="verdict" aria-live="polite"></span></li>
+                <li data-quote="the carbon fiber frame"><strong>Made of carbon fiber</strong><q>the carbon fiber frame</q><span class="verdict" aria-live="polite"></span></li>
+                <li data-quote="64.59 MPa peak von Mises stress, below the 276 MPa yield strength"><strong>Stress stays below yield</strong><q>64.59 MPa peak von Mises stress, below the 276 MPa yield strength</q><span class="verdict" aria-live="polite"></span></li>
+                <li data-quote="tested outdoors on campus"><strong>Tested outdoors</strong><q>tested outdoors on campus</q><span class="verdict" aria-live="polite"></span></li>
+              </ul>
+              <label class="verifier__own" for="ownQuote">Or test your own quote</label>
+              <div class="verifier__input">
+                <input id="ownQuote" type="text" placeholder="e.g. aluminum 6061-T6" autocomplete="off" spellcheck="false">
+                <span id="ownResult" class="verdict" aria-live="polite"></span>
+              </div>
+            </div>
+          </div>
+          <p class="verifier__note">A simplified demo with my own exoskeleton notes as the source. Not Mostla data.</p>
         </div>
       </div>
-      <p class="verifier__note">A simplified demo with my own exoskeleton notes as the source. Not Mostla data.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- MORE PROJECTS: horizontal pan -->
-  <section class="more" id="portfolio" aria-labelledby="more-title">
-    <div class="more__pin">
-      <div class="wrap more__head">
-        <h2 id="more-title" data-split-words>More projects</h2>
+    <!-- CHAPTER: Ask my portfolio (a real grounded agent) -->
+    <section class="chapter ask" id="ask" aria-labelledby="ask-title">
+      <div class="wrap ask__inner">
+        <div class="ask__head">
+          <p class="kicker" data-reveal>Same rule, pointed at me</p>
+          <h2 id="ask-title" data-reveal>Ask my portfolio</h2>
+          <p data-reveal>Ask anything about my work. Claude answers only from a short knowledge base about me, and every claim has to point to a quote. A verifier checks each quote before you see it.</p>
+          <ol class="ask__how" data-reveal>
+            <li><strong>Your question</strong> goes to a small server that holds the API key, so it never reaches the browser.</li>
+            <li><strong>Claude</strong> gets the question plus 21 short passages about me, with citations turned on.</li>
+            <li><strong>Each sentence</strong> of the answer comes back marked with the passage it quotes.</li>
+            <li><strong>The verifier</strong> looks for every quote in the passages. What it can't find is dropped, and if nothing is left you get no answer instead of a made-up one.</li>
+          </ol>
+          <a class="link" href="https://github.com/CharlsMex24/portfolio/tree/main/agent" target="_blank" rel="noopener">See the code</a>
+        </div>
+        <div class="askbox" id="askBox" data-endpoint="" data-endpoint-local="http://localhost:8787" data-reveal>
+          <div class="askbox__log" id="askLog" aria-live="polite">
+            <div class="msg msg--bot"><p>Hi. Ask me about Carlos's projects, experience or skills, in English or Spanish.</p></div>
+          </div>
+          <div class="askbox__chips" id="askChips">
+            <button type="button">What did he do at Borregos Racing?</button>
+            <button type="button">¿Cómo comprobó que el exoesqueleto aguanta?</button>
+            <button type="button">What AI work has he done?</button>
+            <button type="button">Does he have a pilot's license?</button>
+          </div>
+          <form class="askbox__form" id="askForm">
+            <label class="sr-only" for="askInput">Your question</label>
+            <input id="askInput" type="text" maxlength="400" placeholder="Ask about a project, a skill, his experience" autocomplete="off" required>
+            <button class="btn btn--ink" type="submit">Ask</button>
+          </form>
+        </div>
       </div>
-      <div class="more__track" id="moreTrack">
-        <article class="panel">
-          <div class="panel__img"><img src="assets/images/projects/vibemap.jpg" alt="VibeMap landing screen with a drop zone for a project folder" loading="lazy" width="1600" height="1000"></div>
-          <div class="panel__body">
-            <p class="meta">HackaDays hackathon, 2026</p>
-            <h3>VibeMap</h3>
-            <p>Drop in a project folder and get an interactive architecture map with per-file drill-down, so you can understand AI-generated code instead of copy-pasting it. Built in 8 hours, the first hackathon for the whole team.</p>
-            <ul class="tags"><li>React</li><li>TypeScript</li><li>Gemini API</li><li>Mermaid.js</li><li>Tailwind</li></ul>
-            <a class="link" href="https://github.com/CharlsMex24/VibeMap_Hackathon" target="_blank" rel="noopener">Source on GitHub <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
-          </div>
-        </article>
-        <article class="panel">
-          <div class="panel__img"><img src="assets/images/projects/questbody.jpg" alt="QuestBody dashboard with live heart rate, HRV and stress readings next to the day's quests" loading="lazy" width="2160" height="1350"></div>
-          <div class="panel__body">
-            <p class="meta">Team project, 2026</p>
-            <h3>QuestBody</h3>
-            <p>A wristband concept with a working web prototype. A simulated 1&nbsp;Hz biometric feed (heart rate, HRV, stress, stillness) triggers RPG quests, XP and loot in real time. Team of three: I built the interactive demo and the financial model.</p>
-            <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li></ul>
-          </div>
-        </article>
-        <article class="panel">
-          <div class="panel__img"><img src="assets/images/projects/borregos-racing-site.jpg" alt="Borregos Racing website hero with the team car on track" loading="lazy" width="2000" height="1250"></div>
-          <div class="panel__body">
-            <p class="meta">Borregos Racing, 2025</p>
-            <h3>Team website</h3>
-            <p>The racing team's website, written from scratch in HTML, CSS and JavaScript, with the car, the competition, results and sponsors.</p>
-            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-          </div>
-        </article>
-        <article class="panel panel--text">
-          <div class="panel__body">
-            <p class="meta">Process simulation course</p>
-            <h3>Clinic operations simulation</h3>
-            <p>Modeled three clinic operations running at the same time in Rockwell Arena, using stochastic arrival and service data to find the bottlenecks and improve patient flow.</p>
-            <ul class="tags"><li>Rockwell Arena</li><li>Discrete-event simulation</li></ul>
-            <a class="link" href="https://github.com/CharlsMex24" target="_blank" rel="noopener">More on GitHub <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- RACING -->
-  <section class="racing wrap" id="racing" aria-labelledby="racing-title">
-    <div class="racing__head">
-      <h2 id="racing-title" data-split-words>Second place, twice</h2>
-      <p data-reveal>Shell Eco-marathon 2025 with Borregos Racing, Prototype Battery-Electric category. I worked on energy-systems optimization and subsystem integration for the car, and built the team's website.</p>
-    </div>
-    <div class="racing__grid">
+    <!-- CHAPTER: Borregos Racing -->
+    <section class="chapter racing wrap" id="racing" aria-labelledby="racing-title">
+      <div class="racing__head">
+        <p class="kicker" data-reveal>Borregos Racing, February to December 2025</p>
+        <h2 id="racing-title" data-reveal>Second place, twice</h2>
+        <p data-reveal>Shell Eco-marathon 2025, Prototype Battery-Electric. I worked on energy-systems optimization and subsystem integration, and built the team's website.</p>
+      </div>
       <figure class="result">
-        <div class="result__img"><img src="assets/images/events/americas2025.jpg" alt="Borregos Racing team with their prototype car after passing technical inspection at Shell Eco-marathon Americas 2025" loading="lazy" width="1600" height="1066" data-parallax="6"></div>
-        <figcaption>
-          <p class="meta">Americas, April 2025</p>
-          <p class="big"><span class="num" data-count="196.8">196.8</span> <span class="unit">mi/kWh</span></p>
-          <a class="link" href="assets/certificates/cert-shell-americas.pdf" target="_blank" rel="noopener">Certificate <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
-        </figcaption>
+        <div class="result__img" data-reveal-img><img src="assets/images/events/Brazil2025.jpg" alt="Borregos Racing team holding the Mexican flag next to their car at Shell Eco-marathon Brazil 2025" loading="lazy" width="1600" height="1066"></div>
+        <figcaption><span class="big"><span class="num" data-count="373.2">373.2</span> km/kWh</span><span>Brazil, August 2025</span><a class="link" href="assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Certificate</a></figcaption>
       </figure>
-      <figure class="result result--offset">
-        <div class="result__img"><img src="assets/images/events/Brazil2025.jpg" alt="Borregos Racing team holding the Mexican flag next to their car at Shell Eco-marathon Brazil 2025" loading="lazy" width="1600" height="1066" data-parallax="6"></div>
-        <figcaption>
-          <p class="meta">Brazil, August 2025</p>
-          <p class="big"><span class="num" data-count="373.2">373.2</span> <span class="unit">km/kWh</span></p>
-          <a class="link" href="assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Certificate <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
-        </figcaption>
+      <figure class="result result--b">
+        <div class="result__img" data-reveal-img><img src="assets/images/events/americas2025.jpg" alt="Borregos Racing team with their car after passing technical inspection at Shell Eco-marathon Americas 2025" loading="lazy" width="1600" height="1066"></div>
+        <figcaption><span class="big"><span class="num" data-count="196.8">196.8</span> mi/kWh</span><span>Americas, April 2025</span><a class="link" href="assets/certificates/cert-shell-americas.pdf" target="_blank" rel="noopener">Certificate</a></figcaption>
       </figure>
-    </div>
-  </section>
+    </section>
 
-  <!-- EXPERIENCE -->
-  <section class="exp wrap" id="experience" aria-labelledby="exp-title">
-    <h2 id="exp-title" data-split-words>Experience</h2>
-    <ol class="exp__list">
-      <li class="row" data-reveal>
-        <p class="row__when">Aug 2026 - now</p>
-        <div class="row__what">
-          <h3>Agentic AI Engineer Intern</h3>
-          <p class="row__org">Mostla, Tec de Monterrey</p>
-        </div>
-        <p class="row__desc">Python data pipeline with web scraping and REST APIs, custom tools and an AI skill for the language model, the quote verifier, evaluation sets, tests and on-premise model deployment.</p>
-      </li>
-      <li class="row" data-reveal>
-        <p class="row__when">2025 - now</p>
-        <div class="row__what">
-          <h3>Research Scholar</h3>
-          <p class="row__org">SHIELD Research Group, Tec de Monterrey</p>
-        </div>
-        <p class="row__desc">Python pipelines for Vicon motion capture and Tekscan pressure data in a study on bowling-throw mechanics: cleaning raw exports, filtering off-sensor frames and fitting 95% confidence ellipses to center-of-force paths across nine trials.</p>
-      </li>
-      <li class="row" data-reveal>
-        <p class="row__when">Feb 2025 - Dec 2025</p>
-        <div class="row__what">
-          <h3>Vehicle Team Member</h3>
-          <p class="row__org">Borregos Racing, Tec de Monterrey</p>
-        </div>
-        <p class="row__desc">Energy-systems optimization and subsystem integration, working to international safety and technical rules under competition deadlines. Two second places in 2025.</p>
-      </li>
-      <li class="row" id="education" data-reveal>
-        <p class="row__when">Aug 2024 - 2028</p>
-        <div class="row__what">
-          <h3>B.S. Mechatronics Engineering</h3>
-          <p class="row__org">Tec de Monterrey, Campus Monterrey</p>
-        </div>
-        <p class="row__desc">GPA 93.67/100. Coursework includes programming, mechatronic integration, AC circuits, process simulation and differential equations.</p>
-      </li>
-    </ol>
-  </section>
-
-  <!-- SKILLS + CERTIFICATIONS -->
-  <section class="skills" id="skills" aria-labelledby="skills-title">
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track" id="marquee">
-        <span>Python</span><span>C++</span><span>TypeScript</span><span>React</span><span>SolidWorks</span><span>STM32</span><span>MATLAB</span><span>Pandas</span><span>Arduino</span><span>Git</span><span>Linux</span><span>scikit-learn</span>
+    <!-- CHAPTER: Exoskeleton, with the drawing-to-prototype brush -->
+    <section class="chapter exo wrap" id="exo" aria-labelledby="exo-title">
+      <div class="reveal" id="reveal">
+        <img src="assets/images/projects/exo-side.jpg" alt="The 3D-printed exoskeleton prototype leaning against a wall" loading="lazy" width="960" height="1280">
+        <canvas aria-hidden="true"></canvas>
+        <span class="hint" id="revealHint">Move your cursor over the drawing</span>
       </div>
-    </div>
-
-    <div class="wrap skills__body">
-      <h2 id="skills-title" data-split-words>What I work with</h2>
-      <div class="skills__groups">
-        <div data-reveal>
-          <h3>Software</h3>
-          <ul>
-            <li>Python with NumPy, Pandas, Matplotlib and scikit-learn</li>
-            <li>C and C++</li>
-            <li>JavaScript, TypeScript and React</li>
-            <li>MATLAB</li>
-            <li>Git, GitHub and Linux (Debian)</li>
-          </ul>
+      <div class="exo__text">
+        <p class="kicker" data-reveal>Course project, 2026</p>
+        <h2 id="exo-title" data-reveal>A chair you wear</h2>
+        <p data-reveal>A passive exoskeleton that locks at the knee and sends your weight to the floor, so you can sit down anywhere. I did the concept, the SolidWorks model, the FEA, the 3D printing and the assembly.</p>
+        <div class="readout" data-reveal>
+          <div><span class="num" data-count="750">750</span><span class="unit">N design load</span></div>
+          <div><span class="num" data-count="64.59">64.59</span><span class="unit">MPa peak stress</span></div>
+          <div><span class="num" data-count="276">276</span><span class="unit">MPa yield, Al 6061-T6</span></div>
         </div>
-        <div data-reveal>
-          <h3>AI and data</h3>
-          <ul>
-            <li>LLM and API integration (Gemini)</li>
-            <li>AI agents with custom tools</li>
-            <li>Evaluation sets and grounded answers</li>
-            <li>Deep learning fundamentals</li>
-            <li>Data analysis and visualization</li>
-          </ul>
-        </div>
-        <div data-reveal>
-          <h3>Hardware</h3>
-          <ul>
-            <li>Arduino and STM32 microcontrollers</li>
-            <li>Sensors and instrumentation</li>
-            <li>SolidWorks CAD and FEA</li>
-            <li>3D printing, soldering, mill and lathe</li>
-            <li>Vicon motion capture and Tekscan pressure mapping</li>
-          </ul>
+        <p class="exo__note" data-reveal>A buckling study puts the first mode at about 300 times the design load.</p>
+        <div class="exo__figs">
+          <figure data-reveal-img><video src="assets/images/projects/exo-walk.mp4" poster="assets/images/projects/exo-walk-poster.jpg" muted loop playsinline preload="none" aria-label="Carlos walking with the exoskeleton and sitting down on it"></video><figcaption>Walk, then sit</figcaption></figure>
+          <figure data-reveal-img><img src="assets/images/projects/exo-fea-stress.jpg" alt="Von Mises stress plot of the exoskeleton under a 750 N load" loading="lazy" width="660" height="457"><figcaption>Von Mises stress at 750 N</figcaption></figure>
         </div>
       </div>
+    </section>
 
-      <h3 class="certs__title" data-reveal>Certifications</h3>
-      <ul class="certs" id="certs">
-        <li data-reveal>
-          <button type="button" data-img="assets/certificates/cert-nvidia.jpeg" data-pdf="assets/certificates/cert-nvidia.pdf">
-            <span class="certs__name">Fundamentals of Deep Learning</span>
-            <span class="certs__by">NVIDIA Deep Learning Institute</span>
-            <span class="certs__year">2025</span>
-          </button>
-        </li>
-        <li data-reveal>
-          <button type="button" data-img="assets/certificates/cert-salesforce-agentforce.jpg" data-pdf="assets/certificates/cert-salesforce-agentforce.pdf">
-            <span class="certs__name">Artificial Intelligence and Agentforce</span>
-            <span class="certs__by">Iberoamerican Technology Foundation with Salesforce</span>
-            <span class="certs__year">2026</span>
-          </button>
-        </li>
-        <li data-reveal>
-          <button type="button" data-img="assets/certificates/cert-gcp.jpg" data-pdf="assets/certificates/cert-gcp.pdf">
-            <span class="certs__name">ICH Good Clinical Practice E6(R3)</span>
-            <span class="certs__by">The Global Health Network</span>
-            <span class="certs__year">2026</span>
-          </button>
-        </li>
-        <li data-reveal>
-          <button type="button" data-img="assets/certificates/cert-science-exercise.jpg" data-pdf="assets/certificates/cert-science-exercise.pdf">
-            <span class="certs__name">Science of Exercise</span>
-            <span class="certs__by">University of Colorado Boulder, Coursera</span>
-            <span class="certs__year">2026</span>
-          </button>
-        </li>
+    <!-- CHAPTER: QuestBody -->
+    <section class="chapter questbody wrap" id="questbody" aria-labelledby="qb-title">
+      <figure class="questbody__shot" data-reveal-img><img src="assets/images/projects/questbody.jpg" alt="QuestBody dashboard with live heart rate, HRV and stress readings next to the day's quests" loading="lazy" width="2160" height="1350"></figure>
+      <div class="questbody__text">
+        <p class="kicker" data-reveal>Team project, 2026</p>
+        <h2 id="qb-title" data-reveal>QuestBody</h2>
+        <p data-reveal>A wristband concept with a working web prototype: a simulated 1&nbsp;Hz biometric feed (heart rate, HRV, stress, stillness) triggers RPG quests, XP and loot in real time. Team of three; I built the interactive demo and the financial model.</p>
+        <p class="meta" data-reveal>React, TypeScript, Vite</p>
+      </div>
+    </section>
+
+    <!-- CHAPTER: smaller projects -->
+    <section class="chapter more wrap" id="more" aria-labelledby="more-title">
+      <h2 id="more-title" data-reveal>Also built</h2>
+      <article class="proj">
+        <figure data-reveal-img><img src="assets/images/projects/vibemap.jpg" alt="VibeMap landing screen with a drop zone for a project folder" loading="lazy" width="1600" height="1000"></figure>
+        <div data-reveal>
+          <h3>VibeMap</h3>
+          <p class="meta">HackaDays hackathon, 2026</p>
+          <p>Drop in a project folder and get an interactive architecture map, so you can understand AI-generated code instead of copy-pasting it. Built in 8 hours with React, TypeScript, Gemini and Mermaid.js.</p>
+          <a class="link" href="https://github.com/CharlsMex24/VibeMap_Hackathon" target="_blank" rel="noopener">Source on GitHub</a>
+        </div>
+      </article>
+      <article class="proj">
+        <figure data-reveal-img><img src="assets/images/projects/borregos-racing-site.jpg" alt="Borregos Racing website hero with the team car on track" loading="lazy" width="2000" height="1250"></figure>
+        <div data-reveal>
+          <h3>Borregos Racing website</h3>
+          <p class="meta">2025</p>
+          <p>The racing team's website, written from scratch in HTML, CSS and JavaScript.</p>
+        </div>
+      </article>
+      <article class="proj proj--text" data-reveal>
+        <h3>Clinic operations simulation</h3>
+        <p class="meta">Rockwell Arena</p>
+        <p>Three clinic operations running at once, modeled with stochastic arrival and service data to find the bottlenecks and improve patient flow.</p>
+      </article>
+    </section>
+
+    <!-- CHAPTER: this website -->
+    <section class="chapter site wrap" id="site" aria-labelledby="site-title">
+      <div class="site__head">
+        <p class="kicker" data-reveal>Built in 2026</p>
+        <h2 id="site-title" data-reveal>This website is a project too</h2>
+        <p data-reveal>I built it with Claude Code as an AI pair programmer. I set the direction and the content, checked every fact and reviewed every screen; the agent wrote much of the code. Directing an AI agent well is a skill I use every day at Mostla.</p>
+      </div>
+      <ul class="site__facts">
+        <li data-reveal><span class="num" data-count="543">543</span><span class="unit">KB robot model</span><p>The Go2 comes from DeepMind's MuJoCo Menagerie. A Python script rebuilds its joint tree as glTF and compresses it from 11.4 MB.</p></li>
+        <li data-reveal><span class="num" data-count="12">12</span><span class="unit">joints solved live</span><p>Analytic inverse kinematics for each leg, within the real joint limits, every frame in the browser, with a test that checks it against the model.</p></li>
+        <li data-reveal><span class="num" data-count="120">120</span><span class="unit">fps on a laptop</span><p>Measured while scrolling at 2x resolution on integrated graphics. No build step: plain HTML, CSS and JavaScript.</p></li>
+        <li data-reveal><span class="num" data-count="21">21</span><span class="unit">verified passages</span><p>Everything the question box can say comes from a knowledge base I wrote and checked.</p></li>
       </ul>
-    </div>
-    <img class="cert-peek" id="certPeek" alt="" aria-hidden="true">
-  </section>
+    </section>
 
-  <!-- CONTACT -->
-  <section class="contact wrap" id="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title" class="sr-only">Contact</h2>
-    <p class="contact__lead" data-reveal>Open to internships and part-time roles in software, AI and robotics.</p>
-    <div class="contact__mail">
-      <a href="mailto:vmcarlos024@gmail.com" data-split-lines><span class="line"><span>vmcarlos024@gmail.com</span></span></a>
-      <button class="btn btn--ghost btn--sm" id="copyMail" type="button" data-mail="vmcarlos024@gmail.com">
-        <svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span>
-      </button>
+    <!-- ABOUT -->
+    <section class="about wrap" id="about">
+      <p class="about__lead" data-reveal>I studied medicine for two years before switching to mechatronics. I still find the human body fascinating, so a lot of my work ends up close to it: an exoskeleton you wear, a wristband that reads your heart rate, motion-capture research. The rest is software, which is the part I enjoy most.</p>
+      <dl class="facts">
+        <div data-reveal><dt>Studying</dt><dd>B.S. Mechatronics Engineering, Tec de Monterrey. 5th semester, GPA 93.67/100.</dd></div>
+        <div data-reveal><dt>Working</dt><dd>Agentic AI Engineer Intern at Mostla, Tec's emerging technologies lab.</dd></div>
+        <div data-reveal><dt>Researching</dt><dd>Research scholar in the SHIELD group, biomechanics data.</dd></div>
+        <div data-reveal><dt>Speaking</dt><dd>Spanish (native) and English (full professional).</dd></div>
+      </dl>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="exp wrap" id="experience" aria-labelledby="exp-title">
+      <h2 id="exp-title" data-reveal>Experience</h2>
+      <ol class="exp__list">
+        <li data-reveal><p class="when">Aug 2026 to now</p><h3>Agentic AI Engineer Intern, Mostla</h3><p>Python data pipeline with web scraping and REST APIs, custom tools and an AI skill for the language model, the quote verifier, evaluation sets, tests and on-premise model deployment.</p></li>
+        <li data-reveal><p class="when">2025 to now</p><h3>Research Scholar, SHIELD Research Group</h3><p>Python pipelines for Vicon motion capture and Tekscan pressure data in a study on bowling-throw mechanics: cleaning raw exports, filtering off-sensor frames and fitting 95% confidence ellipses to center-of-force paths across nine trials.</p></li>
+        <li data-reveal><p class="when">Feb to Dec 2025</p><h3>Vehicle Team Member, Borregos Racing</h3><p>Energy-systems optimization and subsystem integration under international safety and technical rules.</p></li>
+        <li data-reveal id="education"><p class="when">2024 to 2028</p><h3>B.S. Mechatronics Engineering, Tec de Monterrey</h3><p>GPA 93.67/100. Programming, mechatronic integration, AC circuits, process simulation, differential equations.</p></li>
+      </ol>
+    </section>
+
+    <!-- SKILLS AND CERTIFICATES -->
+    <section class="skills wrap" id="skills" aria-labelledby="skills-title">
+      <h2 id="skills-title" data-reveal>Tools and certificates</h2>
+      <div class="skills__grid">
+        <div data-reveal><h3>Software</h3><p>Python (NumPy, Pandas, Matplotlib, scikit-learn), C and C++, JavaScript, TypeScript, React, MATLAB, Git, Linux.</p></div>
+        <div data-reveal><h3>AI and data</h3><p>LLM and API integration, AI agents with custom tools, evaluation sets and grounded answers, deep learning fundamentals, data analysis.</p></div>
+        <div data-reveal><h3>Hardware</h3><p>STM32 and Arduino, sensors and instrumentation, SolidWorks CAD and FEA, 3D printing, soldering, mill and lathe, Vicon and Tekscan.</p></div>
+      </div>
+      <ul class="certs">
+        <li data-reveal><button type="button" data-cert="Fundamentals of Deep Learning" data-img="assets/certificates/cert-nvidia.jpeg" data-pdf="assets/certificates/cert-nvidia.pdf"><span>Fundamentals of Deep Learning</span><span>NVIDIA Deep Learning Institute, 2025</span></button></li>
+        <li data-reveal><button type="button" data-cert="Artificial Intelligence and Agentforce" data-img="assets/certificates/cert-salesforce-agentforce.jpg" data-pdf="assets/certificates/cert-salesforce-agentforce.pdf"><span>Artificial Intelligence and Agentforce</span><span>Iberoamerican Technology Foundation with Salesforce, 2026</span></button></li>
+        <li data-reveal><button type="button" data-cert="ICH Good Clinical Practice E6(R3)" data-img="assets/certificates/cert-gcp.jpg" data-pdf="assets/certificates/cert-gcp.pdf"><span>ICH Good Clinical Practice E6(R3)</span><span>The Global Health Network, 2026</span></button></li>
+        <li data-reveal><button type="button" data-cert="Science of Exercise" data-img="assets/certificates/cert-science-exercise.jpg" data-pdf="assets/certificates/cert-science-exercise.pdf"><span>Science of Exercise</span><span>University of Colorado Boulder, Coursera, 2026</span></button></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ENDING: portrait as points -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <canvas id="face" aria-hidden="true"></canvas>
+    <div class="contact__copy">
+      <h2 id="contact-title" data-reveal>Let's build something.</h2>
+      <p data-reveal>Open to internships and part-time roles in software, AI and robotics.</p>
+      <a class="contact__mail" href="mailto:vmcarlos024@gmail.com" data-reveal>vmcarlos024@gmail.com</a>
+      <div class="contact__links" data-reveal>
+        <button class="btn btn--orange" id="copyMail" type="button" data-mail="vmcarlos024@gmail.com"><span>Copy email</span></button>
+        <a class="btn btn--light" href="https://www.linkedin.com/in/carlos-velasco-moreno" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--light" href="https://github.com/CharlsMex24" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn--light" href="assets/documents/cv.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
     </div>
-    <ul class="contact__links" data-reveal>
-      <li><a href="https://www.linkedin.com/in/carlos-velasco-moreno" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
-      <li><a href="https://github.com/CharlsMex24" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li>
-      <li><a href="assets/documents/cv.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg>Resume</a></li>
-    </ul>
+    <span class="hint contact__hint" id="faceHint">Move your cursor through the points</span>
   </section>
 </main>
 
-<footer class="footer wrap">
+<footer class="foot">
   <p>Carlos Velasco, 2026</p>
-  <p>Updated September 2026</p>
-  <a href="#top">Back to top</a>
+  <p>Unitree Go2 model: MuJoCo Menagerie, BSD-3-Clause, &copy; Unitree Robotics</p>
 </footer>
 
 <dialog class="viewer" id="viewer" aria-labelledby="viewerTitle">
   <div class="viewer__bar">
     <p id="viewerTitle"></p>
-    <a class="link" id="viewerPdf" href="#" target="_blank" rel="noopener">Open PDF <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
-    <button class="viewer__close" type="button" id="viewerClose" aria-label="Close">
-      <svg class="i" aria-hidden="true"><use href="#i-x"/></svg>
-    </button>
+    <a class="link" id="viewerPdf" href="#" target="_blank" rel="noopener">Open PDF</a>
+    <button class="btn btn--line btn--sm" type="button" id="viewerClose">Close</button>
   </div>
   <img id="viewerImg" alt="">
 </dialog>
@@ -443,6 +364,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+<script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

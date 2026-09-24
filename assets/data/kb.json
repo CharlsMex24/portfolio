@@ -1,0 +1,132 @@
+{
+  "about": "Knowledge base for the portfolio agent. Every passage is a verified fact about Carlos Velasco. The agent may only answer with sentences it can quote from here; the worker checks every quote against this file before showing it. Edit this file to change what the agent knows.",
+  "updated": "2026-09-24",
+  "passages": [
+    {
+      "id": "profile",
+      "title": "Who Carlos is",
+      "section": "#about",
+      "text": "Carlos Velasco Moreno is a mechatronics engineering student at Tecnológico de Monterrey, Campus Monterrey, in Mexico. He is in his 5th semester and expects to graduate in 2028. His GPA is 93.67 out of 100. He studied medicine for two years before switching to mechatronics. Programming is the part of mechatronics he enjoys most."
+    },
+    {
+      "id": "languages",
+      "title": "Languages",
+      "section": "#about",
+      "text": "Carlos speaks Spanish as his native language. His English is at full professional proficiency, and he can work and interview entirely in English."
+    },
+    {
+      "id": "availability",
+      "title": "Availability and contact",
+      "section": "#contact",
+      "text": "Carlos is open to internships and part-time roles in software, AI and robotics. His email is vmcarlos024@gmail.com. His LinkedIn is linkedin.com/in/carlos-velasco-moreno and his GitHub is github.com/CharlsMex24. He is based in Monterrey, Mexico."
+    },
+    {
+      "id": "mostla-role",
+      "title": "Mostla, Agentic AI Engineer Intern",
+      "section": "#agent",
+      "text": "Since August 2026 Carlos has worked as an Agentic AI Engineer Intern at Mostla, the emerging technologies lab of Tecnológico de Monterrey. He is building an AI agent that classifies company information."
+    },
+    {
+      "id": "mostla-agent",
+      "title": "How the Mostla agent works",
+      "section": "#agent",
+      "text": "Every answer from the Mostla agent has to come with an exact quote from its source. A deterministic verifier checks that the quote really appears in the source before anything is saved. If there is no verified quote, the answer is rejected. The work includes a Python data pipeline with web scraping and REST APIs, custom tools and an AI skill for the language model, evaluation sets, tests and on-premise model deployment."
+    },
+    {
+      "id": "shield",
+      "title": "SHIELD research group",
+      "section": "#experience",
+      "text": "Since 2025 Carlos has been a research scholar in the SHIELD research group at Tecnológico de Monterrey. He processes and analyzes biomechanical data from Vicon motion capture and Tekscan pressure mapping for a study on bowling-throw mechanics. He built reusable Python pipelines with Pandas, NumPy and Matplotlib that clean raw sensor exports, filter out-of-sensor frames and fit 95% confidence ellipses to center-of-force trajectories across nine trials. He reports the findings to the project supervisor."
+    },
+    {
+      "id": "borregos-role",
+      "title": "Borregos Racing, role",
+      "section": "#racing",
+      "text": "From February to December 2025 Carlos was a vehicle team member of Borregos Racing, a Tecnológico de Monterrey team that competes at Shell Eco-marathon. He was responsible for energy-systems optimization and vehicle subsystem integration, working to international safety and technical regulations under competition deadlines. He also built the team's website with HTML, CSS and JavaScript."
+    },
+    {
+      "id": "borregos-results",
+      "title": "Shell Eco-marathon results",
+      "section": "#racing",
+      "text": "Borregos Racing won second place at Shell Eco-marathon Americas in April 2025, in the Prototype Battery-Electric category, with an efficiency of 196.8 miles per kWh. The team won second place again at Shell Eco-marathon Brazil in August 2025, in the same category, with 373.2 km per kWh."
+    },
+    {
+      "id": "exo-concept",
+      "title": "Chairless-chair exoskeleton",
+      "section": "#exo",
+      "text": "The chairless-chair exoskeleton is a passive lower-limb exoskeleton that locks at the knee and sends the user's weight to the floor, so they can sit down anywhere. It was a course project in 2026. Carlos did the concept, the SolidWorks model, the FEA, the 3D printing and the assembly."
+    },
+    {
+      "id": "exo-analysis",
+      "title": "Exoskeleton analysis",
+      "section": "#exo",
+      "text": "The exoskeleton was checked with a static FEA study with a 750 N load on aluminum 6061-T6. The peak von Mises stress was 64.59 MPa, below the 276 MPa yield strength. A buckling study gave a load factor of 304.88 for the first mode."
+    },
+    {
+      "id": "exo-prototype",
+      "title": "Exoskeleton prototype",
+      "section": "#exo",
+      "text": "The exoskeleton prototype was 3D printed at full scale, braced with wooden diagonals and held on with straps. It was sized to Carlos's own legs, and he tested it by wearing it around campus."
+    },
+    {
+      "id": "questbody",
+      "title": "QuestBody",
+      "section": "#questbody",
+      "text": "QuestBody is a team project from 2026: a wristband concept and a working web prototype. In the prototype, a simulated 1 Hz biometric feed with heart rate, HRV, stress and stillness triggers RPG quests, XP and loot in real time. It was a team of three, and Carlos built the interactive demo and the financial model. The demo is built with React, TypeScript and Vite."
+    },
+    {
+      "id": "vibemap",
+      "title": "VibeMap",
+      "section": "#more",
+      "text": "VibeMap is a tool built in 8 hours at the HackaDays hackathon at Tecnológico de Monterrey in 2026. You drop in a project folder and get an interactive architecture map with per-file drill-down, so you can understand AI-generated code instead of copy-pasting it. It was built with React, TypeScript, the Gemini API, Mermaid.js and Tailwind CSS. It was the first hackathon for the whole team."
+    },
+    {
+      "id": "clinic",
+      "title": "Clinic operations simulation",
+      "section": "#more",
+      "text": "In an academic project, Carlos modeled three clinic operations running at the same time in Rockwell Arena. He used stochastic arrival and service data to find bottlenecks and improve patient flow."
+    },
+    {
+      "id": "microcontrollers",
+      "title": "Microcontroller labs",
+      "section": "#skills",
+      "text": "In his mechatronic integration coursework Carlos programs an STM32 NUCLEO-F446RE board. His labs include driving a DC motor through an H-bridge from a joystick and reading a motor encoder with interrupts."
+    },
+    {
+      "id": "skills-software",
+      "title": "Software skills",
+      "section": "#skills",
+      "text": "Carlos programs in Python with NumPy, Pandas, Matplotlib and scikit-learn, in C and C++, in JavaScript and TypeScript with React, and in MATLAB. He uses Git, GitHub and Linux (Debian)."
+    },
+    {
+      "id": "skills-ai",
+      "title": "AI and data skills",
+      "section": "#skills",
+      "text": "His AI and data work covers LLM and API integration, AI agents with custom tools, evaluation sets and grounded answers, deep learning fundamentals, and data analysis and visualization."
+    },
+    {
+      "id": "skills-hardware",
+      "title": "Hardware skills",
+      "section": "#skills",
+      "text": "His hardware skills include Arduino and STM32 microcontrollers, sensors and instrumentation, SolidWorks CAD and FEA, 3D printing, soldering, the mill and the lathe, Vicon motion capture and Tekscan pressure mapping."
+    },
+    {
+      "id": "certifications",
+      "title": "Certifications",
+      "section": "#skills",
+      "text": "Carlos holds Fundamentals of Deep Learning from the NVIDIA Deep Learning Institute (2025). He completed Artificial Intelligence and Agentforce, a 20-hour course by the Iberoamerican Technology Foundation with Salesforce (2026). He completed ICH Good Clinical Practice E6(R3) from The Global Health Network with a 100% score (2026). He completed Science of Exercise from the University of Colorado Boulder on Coursera (2026)."
+    },
+    {
+      "id": "site",
+      "title": "This website",
+      "section": "#site",
+      "text": "This website is plain HTML, CSS and JavaScript with no build step, hosted on GitHub Pages. The robot is a Unitree Go2 model from Google DeepMind's MuJoCo Menagerie, converted to a compressed glTF file. The dog turns toward the cursor while its feet stay planted, because each leg is solved with analytic inverse kinematics in the browser within the real joint limits. Carlos is about to start programming a real Go2 at Mostla. Carlos built the site with Claude Code as an AI pair programmer: he set the direction, the content and the review, and the agent wrote much of the code."
+    },
+    {
+      "id": "site-agent",
+      "title": "This question box",
+      "section": "#ask",
+      "text": "The question box on this site uses Claude through the Anthropic API, called from a small Cloudflare Worker so the API key never reaches the browser. The model receives only the passages of a knowledge base about Carlos and must cite them. The worker checks every citation against the knowledge base before the answer is shown, and it refuses answers without a verified citation. It is the same rule as his Mostla agent: no quote, no answer."
+    }
+  ]
+}

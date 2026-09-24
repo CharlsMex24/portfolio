@@ -38,3 +38,8 @@ yarn.lock
 dist/
 build/
 .cache/
+
+# Portfolio agent (Cloudflare Worker)
+agent/node_modules/
+agent/.wrangler/
+agent/.dev.vars
