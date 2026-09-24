@@ -17,22 +17,26 @@ Built as both a public-facing portfolio and a proof of concept that a well-craft
 
 | Section | Content |
 |---|---|
-| Hero | Particle network animation (canvas), animated counters, floating project cards |
-| About | Bio, profile, and skill tags |
-| Portfolio | Project cards with filter by category, 3D tilt effect, certificate modal viewer |
-| Skills | Tech stack organized by domain with icons |
-| Experience | Timeline — Borregos Racing & SHIELD research |
-| Education | ITESM, certifications, competition credentials |
-| Contact | Email, GitHub, LinkedIn |
+| Hero | Name, current role, photo of the exoskeleton prototype |
+| About | Short bio that lights up as you scroll, key facts |
+| Work | Exoskeleton case study: sticky media that follows the steps (video, CAD, FEA, prototype) |
+| Agent | The Mostla agent idea plus a live quote-verifier demo |
+| More projects | VibeMap, QuestBody, Borregos website, clinic simulation (horizontal scroll) |
+| Racing | Shell Eco-marathon 2025 results with certificates |
+| Experience | Mostla, SHIELD, Borregos Racing, Tec de Monterrey |
+| Skills | Skills by area and certifications with a preview viewer |
+| Contact | Email (copy button), LinkedIn, GitHub, resume |
 
 ---
 
 ## Tech stack
 
-- **HTML5** — semantic structure, accessibility attributes
-- **CSS3** — custom properties, grid/flexbox layout, scroll-driven animations
-- **JavaScript (ES6+)** — canvas particle system, Intersection Observer, typewriter, modal viewer
-- **No frameworks. No dependencies. No build step.**
+- **HTML, CSS, JavaScript**, no build step
+- **GSAP + ScrollTrigger** (cdnjs) for scroll animations and the pinned horizontal section
+- **Lenis** (jsDelivr) for smooth scrolling
+- Geist and Geist Mono (Google Fonts), Phosphor icons inlined as an SVG sprite
+- Follows the OS light/dark setting and `prefers-reduced-motion` (fades only, no movement).
+  Works without the CDNs as a static page.
 
 ---
 
@@ -41,7 +45,7 @@ Built as both a public-facing portfolio and a proof of concept that a well-craft
 -  Shell Eco-marathon Brazil 2025 — **2nd place**, 373.2 km/kWh (Prototype Battery-Electric)
 -  Shell Eco-marathon Americas 2025 — **2nd place**, 196.8 mi/kWh
 -  NVIDIA Deep Learning Institute — Fundamentals of Deep Learning
--  Chairless Chair — passive lower-limb exoskeleton (in progress)
+-  Chairless Chair — passive lower-limb exoskeleton, designed, simulated and printed at full scale (2026)
 
 ---
 

@@ -1,582 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos Velasco | Mechatronics & AI Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
-    <link rel="stylesheet" href="assets/css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlos Velasco | Mechatronics Engineering</title>
+<meta name="description" content="Mechatronics engineering student at Tec de Monterrey. AI agents at Mostla, a passive exoskeleton, biometric wearables and two Shell Eco-marathon podiums.">
+<meta name="theme-color" content="#f3f3f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f10" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Carlos Velasco | Mechatronics Engineering">
+<meta property="og:description" content="AI agents, wearable hardware and the software in between.">
+<meta property="og:url" content="https://charlsmex24.github.io/portfolio/">
+<meta property="og:image" content="https://charlsmex24.github.io/portfolio/assets/images/projects/exo-stairs.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="preload" as="image" href="assets/images/projects/exo-stairs.jpg">
+
+<script>
+  // Hide elements that will animate in. If the scripts never arrive,
+  // the timeout gives the content back so nothing stays invisible.
+  document.documentElement.classList.add('js-motion');
+  setTimeout(function () {
+    if (!window.__motionReady) document.documentElement.classList.remove('js-motion');
+  }, 3000);
+</script>
 </head>
 <body>
- 
-<!-- SCROLL BAR -->
-<div id="spbar"></div>
- 
-<!-- CERT MODAL -->
-<div class="modal-overlay" id="certModal">
-    <div class="modal-box" id="modalBox">
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <div id="modalContent"></div>
-        <div class="modal-cap" id="modalCap"></div>
-    </div>
-</div>
- 
-<!-- ════════════════════════════════════════
-     NAVBAR — deep indigo, always distinct
-════════════════════════════════════════ -->
-<nav id="nav">
-    <!-- LEFT: logo (CV monogram) -->
-    <a href="#home" class="nav-logo" aria-label="Carlos Velasco — Home">
-        <span class="logo-mono">CV</span>
+
+<!-- Phosphor Icons (regular), inlined as a sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+  <symbol id="i-out" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 256 256"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="#top">Carlos Velasco</a>
+    <nav class="nav__links" id="navLinks" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work" data-until="#racing">Work</a>
+      <a href="#experience" data-until="#skills">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn--ghost btn--sm nav__cv" href="assets/documents/cv.pdf" target="_blank" rel="noopener">
+      Resume <svg class="i" aria-hidden="true"><use href="#i-out"/></svg>
     </a>
- 
-    <!-- CENTER: links -->
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#about"      onclick="closeNav()">About</a></li>
-        <li><a href="#portfolio"  onclick="closeNav()">Portfolio</a></li>
-        <li><a href="#skills"     onclick="closeNav()">Skills</a></li>
-        <li><a href="#experience" onclick="closeNav()">Experience</a></li>
-        <li><a href="#education"  onclick="closeNav()">Education</a></li>
-        <li><a href="#contact"    onclick="closeNav()">Contact</a></li>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero wrap" id="top">
+    <div class="hero__text">
+      <p class="hero__status" data-hero><span class="pulse" aria-hidden="true"></span>Open to 2027 internships</p>
+      <h1 class="hero__name" data-split-lines>
+        <span class="line"><span>Carlos</span></span>
+        <span class="line"><span>Velasco</span></span>
+      </h1>
+      <p class="hero__sub" data-hero>Mechatronics engineering student at Tec de Monterrey. Currently building an AI agent at Mostla.</p>
+      <div class="hero__cta" data-hero>
+        <a class="btn btn--solid" href="#work">See my work <svg class="i" aria-hidden="true"><use href="#i-down"/></svg></a>
+        <a class="link" href="assets/documents/cv.pdf" target="_blank" rel="noopener">Resume <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+      </div>
+    </div>
+    <figure class="hero__media">
+      <div class="hero__frame" data-reveal-clip>
+        <img src="assets/images/projects/exo-stairs.jpg" alt="Carlos sitting on a staircase while wearing his 3D-printed exoskeleton prototype" width="960" height="1280" data-parallax="8">
+      </div>
+      <figcaption data-hero>Testing my exoskeleton prototype on campus, 2026.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about wrap" id="about">
+    <p class="about__statement" data-scrub-words>I studied medicine for two years before switching to mechatronics. I still find the human body fascinating, so a lot of my work ends up close to it: an exoskeleton you wear, a wristband that reads your heart rate, motion-capture research. The rest is software, which is the part I enjoy most.</p>
+    <dl class="facts">
+      <div data-reveal>
+        <dt>Studying</dt>
+        <dd>B.S. Mechatronics Engineering at Tec de Monterrey. 5th semester, GPA 93.67/100.</dd>
+      </div>
+      <div data-reveal>
+        <dt>Working</dt>
+        <dd>Agentic AI Engineer Intern at Mostla, Tec's emerging technologies lab.</dd>
+      </div>
+      <div data-reveal>
+        <dt>Researching</dt>
+        <dd>Research scholar in the SHIELD group, working with biomechanics data.</dd>
+      </div>
+      <div data-reveal>
+        <dt>Speaking</dt>
+        <dd>Spanish (native) and English (full professional).</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- FEATURED: EXOSKELETON -->
+  <section class="case" id="work" aria-labelledby="case-title">
+    <div class="wrap case__head">
+      <h2 id="case-title" data-split-words>Chairless-chair exoskeleton</h2>
+      <p data-reveal>A passive exoskeleton that locks at the knee and sends your weight to the floor, so you can sit down anywhere. Course project, 2026. I did the concept, CAD, FEA, 3D printing and assembly.</p>
+    </div>
+
+    <div class="wrap case__body">
+      <div class="case__stage" aria-hidden="true">
+        <div class="case__media case__media--video is-active" data-step-media="0">
+          <video src="assets/images/projects/exo-walk.mp4" poster="assets/images/projects/exo-walk-poster.jpg" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="case__media" data-step-media="1">
+          <img src="assets/images/projects/exo-cad.jpg" alt="" loading="lazy" width="938" height="1273">
+        </div>
+        <div class="case__media case__media--shot" data-step-media="2">
+          <img src="assets/images/projects/exo-fea-stress.jpg" alt="" loading="lazy" width="660" height="457">
+        </div>
+        <div class="case__media case__media--shot" data-step-media="3">
+          <img src="assets/images/projects/exo-buckling.jpg" alt="" loading="lazy" width="660" height="457">
+        </div>
+        <div class="case__media" data-step-media="4">
+          <img src="assets/images/projects/exo-side.jpg" alt="" loading="lazy" width="960" height="1280">
+        </div>
+      </div>
+
+      <ol class="case__steps">
+        <li class="step is-active" data-step="0">
+          <h3>Walk, then sit</h3>
+          <p>The frame moves with your legs while you walk. When you sit back, the knee lock holds and the frame carries your weight down to the floor.</p>
+        </li>
+        <li class="step" data-step="1">
+          <h3>Designed in SolidWorks</h3>
+          <p>I modeled the full assembly in SolidWorks, with every link sized to my own legs.</p>
+        </li>
+        <li class="step" data-step="2">
+          <h3>Checked with FEA</h3>
+          <p>Static study with a 750&nbsp;N load on aluminum 6061-T6.</p>
+          <div class="readout">
+            <div><span class="num" data-count="64.59">64.59</span><span class="unit">MPa peak stress</span></div>
+            <div><span class="num" data-count="276">276</span><span class="unit">MPa yield strength</span></div>
+          </div>
+        </li>
+        <li class="step" data-step="3">
+          <h3>Buckling</h3>
+          <p>The legs work as columns, so I also ran a buckling study. Its first mode would need about 300 times the design load.</p>
+          <div class="readout">
+            <div><span class="num" data-count="304.88">304.88</span><span class="unit">load factor, mode 1</span></div>
+          </div>
+        </li>
+        <li class="step" data-step="4">
+          <h3>Printed and worn</h3>
+          <p>The prototype is 3D printed at full scale, braced with wooden diagonals and held on with straps. I tested it by wearing it around campus.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- MOSTLA AGENT + LIVE DEMO -->
+  <section class="agent wrap" id="agent" aria-labelledby="agent-title">
+    <div class="agent__head">
+      <h2 id="agent-title" data-split-words>An AI agent that has to show its sources</h2>
+      <p data-reveal>At Mostla I'm building an agent that classifies company information. Every answer has to come with an exact quote from its source, and a deterministic verifier checks that quote before anything gets saved. No quote, no answer.</p>
+      <ul class="tags" data-reveal>
+        <li>Python</li><li>Web scraping</li><li>REST APIs</li><li>LLM tools</li><li>Evaluation sets</li><li>Tests</li>
+      </ul>
+    </div>
+
+    <div class="verifier" data-reveal>
+      <div class="verifier__bar">
+        <p>Try the idea. The model proposes four answers, each with a quote. Only quotes that really appear in the source get through.</p>
+        <button class="btn btn--solid btn--sm" id="runVerifier" type="button">Run verifier</button>
+      </div>
+      <div class="verifier__grid">
+        <div class="verifier__source">
+          <p class="label">Source text</p>
+          <p id="sourceText">The frame was modeled in SolidWorks and checked with a static study with a 750 N load. The result was a 64.59 MPa peak von Mises stress, below the 276 MPa yield strength of aluminum 6061-T6. The printed prototype was tested by wearing it around campus.</p>
+        </div>
+        <div class="verifier__claims">
+          <p class="label">Model answers</p>
+          <ul id="claims">
+            <li data-quote="a static study with a 750 N load"><strong>Designed for a 750 N load</strong><q>a static study with a 750 N load</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="the carbon fiber frame"><strong>Made of carbon fiber</strong><q>the carbon fiber frame</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="64.59 MPa peak von Mises stress, below the 276 MPa yield strength"><strong>Stress stays below yield</strong><q>64.59 MPa peak von Mises stress, below the 276 MPa yield strength</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="tested outdoors on campus"><strong>Tested outdoors</strong><q>tested outdoors on campus</q><span class="verdict" aria-live="polite"></span></li>
+          </ul>
+          <label class="verifier__own" for="ownQuote">Or test your own quote</label>
+          <div class="verifier__input">
+            <input id="ownQuote" type="text" placeholder="e.g. aluminum 6061-T6" autocomplete="off" spellcheck="false">
+            <span id="ownResult" class="verdict" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+      <p class="verifier__note">A simplified demo with my own exoskeleton notes as the source. Not Mostla data.</p>
+    </div>
+  </section>
+
+  <!-- MORE PROJECTS: horizontal pan -->
+  <section class="more" id="portfolio" aria-labelledby="more-title">
+    <div class="more__pin">
+      <div class="wrap more__head">
+        <h2 id="more-title" data-split-words>More projects</h2>
+      </div>
+      <div class="more__track" id="moreTrack">
+        <article class="panel">
+          <div class="panel__img"><img src="assets/images/projects/vibemap.jpg" alt="VibeMap landing screen with a drop zone for a project folder" loading="lazy" width="1600" height="1000"></div>
+          <div class="panel__body">
+            <p class="meta">HackaDays hackathon, 2026</p>
+            <h3>VibeMap</h3>
+            <p>Drop in a project folder and get an interactive architecture map with per-file drill-down, so you can understand AI-generated code instead of copy-pasting it. Built in 8 hours, the first hackathon for the whole team.</p>
+            <ul class="tags"><li>React</li><li>TypeScript</li><li>Gemini API</li><li>Mermaid.js</li><li>Tailwind</li></ul>
+            <a class="link" href="https://github.com/CharlsMex24/VibeMap_Hackathon" target="_blank" rel="noopener">Source on GitHub <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel__img"><img src="assets/images/projects/questbody.jpg" alt="QuestBody dashboard with live heart rate, HRV and stress readings next to the day's quests" loading="lazy" width="2160" height="1350"></div>
+          <div class="panel__body">
+            <p class="meta">Team project, 2026</p>
+            <h3>QuestBody</h3>
+            <p>A wristband concept with a working web prototype. A simulated 1&nbsp;Hz biometric feed (heart rate, HRV, stress, stillness) triggers RPG quests, XP and loot in real time. Team of three: I built the interactive demo and the financial model.</p>
+            <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li></ul>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel__img"><img src="assets/images/projects/borregos-racing-site.jpg" alt="Borregos Racing website hero with the team car on track" loading="lazy" width="2000" height="1250"></div>
+          <div class="panel__body">
+            <p class="meta">Borregos Racing, 2025</p>
+            <h3>Team website</h3>
+            <p>The racing team's website, written from scratch in HTML, CSS and JavaScript, with the car, the competition, results and sponsors.</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+          </div>
+        </article>
+        <article class="panel panel--text">
+          <div class="panel__body">
+            <p class="meta">Process simulation course</p>
+            <h3>Clinic operations simulation</h3>
+            <p>Modeled three clinic operations running at the same time in Rockwell Arena, using stochastic arrival and service data to find the bottlenecks and improve patient flow.</p>
+            <ul class="tags"><li>Rockwell Arena</li><li>Discrete-event simulation</li></ul>
+            <a class="link" href="https://github.com/CharlsMex24" target="_blank" rel="noopener">More on GitHub <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RACING -->
+  <section class="racing wrap" id="racing" aria-labelledby="racing-title">
+    <div class="racing__head">
+      <h2 id="racing-title" data-split-words>Second place, twice</h2>
+      <p data-reveal>Shell Eco-marathon 2025 with Borregos Racing, Prototype Battery-Electric category. I worked on energy-systems optimization and subsystem integration for the car, and built the team's website.</p>
+    </div>
+    <div class="racing__grid">
+      <figure class="result">
+        <div class="result__img"><img src="assets/images/events/americas2025.jpg" alt="Borregos Racing team with their prototype car after passing technical inspection at Shell Eco-marathon Americas 2025" loading="lazy" width="1600" height="1066" data-parallax="6"></div>
+        <figcaption>
+          <p class="meta">Americas, April 2025</p>
+          <p class="big"><span class="num" data-count="196.8">196.8</span> <span class="unit">mi/kWh</span></p>
+          <a class="link" href="assets/certificates/cert-shell-americas.pdf" target="_blank" rel="noopener">Certificate <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+        </figcaption>
+      </figure>
+      <figure class="result result--offset">
+        <div class="result__img"><img src="assets/images/events/Brazil2025.jpg" alt="Borregos Racing team holding the Mexican flag next to their car at Shell Eco-marathon Brazil 2025" loading="lazy" width="1600" height="1066" data-parallax="6"></div>
+        <figcaption>
+          <p class="meta">Brazil, August 2025</p>
+          <p class="big"><span class="num" data-count="373.2">373.2</span> <span class="unit">km/kWh</span></p>
+          <a class="link" href="assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Certificate <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="exp wrap" id="experience" aria-labelledby="exp-title">
+    <h2 id="exp-title" data-split-words>Experience</h2>
+    <ol class="exp__list">
+      <li class="row" data-reveal>
+        <p class="row__when">Aug 2026 - now</p>
+        <div class="row__what">
+          <h3>Agentic AI Engineer Intern</h3>
+          <p class="row__org">Mostla, Tec de Monterrey</p>
+        </div>
+        <p class="row__desc">Python data pipeline with web scraping and REST APIs, custom tools and an AI skill for the language model, the quote verifier, evaluation sets, tests and on-premise model deployment.</p>
+      </li>
+      <li class="row" data-reveal>
+        <p class="row__when">2025 - now</p>
+        <div class="row__what">
+          <h3>Research Scholar</h3>
+          <p class="row__org">SHIELD Research Group, Tec de Monterrey</p>
+        </div>
+        <p class="row__desc">Python pipelines for Vicon motion capture and Tekscan pressure data in a study on bowling-throw mechanics: cleaning raw exports, filtering off-sensor frames and fitting 95% confidence ellipses to center-of-force paths across nine trials.</p>
+      </li>
+      <li class="row" data-reveal>
+        <p class="row__when">Feb 2025 - Dec 2025</p>
+        <div class="row__what">
+          <h3>Vehicle Team Member</h3>
+          <p class="row__org">Borregos Racing, Tec de Monterrey</p>
+        </div>
+        <p class="row__desc">Energy-systems optimization and subsystem integration, working to international safety and technical rules under competition deadlines. Two second places in 2025.</p>
+      </li>
+      <li class="row" id="education" data-reveal>
+        <p class="row__when">Aug 2024 - 2028</p>
+        <div class="row__what">
+          <h3>B.S. Mechatronics Engineering</h3>
+          <p class="row__org">Tec de Monterrey, Campus Monterrey</p>
+        </div>
+        <p class="row__desc">GPA 93.67/100. Coursework includes programming, mechatronic integration, AC circuits, process simulation and differential equations.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- SKILLS + CERTIFICATIONS -->
+  <section class="skills" id="skills" aria-labelledby="skills-title">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee">
+        <span>Python</span><span>C++</span><span>TypeScript</span><span>React</span><span>SolidWorks</span><span>STM32</span><span>MATLAB</span><span>Pandas</span><span>Arduino</span><span>Git</span><span>Linux</span><span>scikit-learn</span>
+      </div>
+    </div>
+
+    <div class="wrap skills__body">
+      <h2 id="skills-title" data-split-words>What I work with</h2>
+      <div class="skills__groups">
+        <div data-reveal>
+          <h3>Software</h3>
+          <ul>
+            <li>Python with NumPy, Pandas, Matplotlib and scikit-learn</li>
+            <li>C and C++</li>
+            <li>JavaScript, TypeScript and React</li>
+            <li>MATLAB</li>
+            <li>Git, GitHub and Linux (Debian)</li>
+          </ul>
+        </div>
+        <div data-reveal>
+          <h3>AI and data</h3>
+          <ul>
+            <li>LLM and API integration (Gemini)</li>
+            <li>AI agents with custom tools</li>
+            <li>Evaluation sets and grounded answers</li>
+            <li>Deep learning fundamentals</li>
+            <li>Data analysis and visualization</li>
+          </ul>
+        </div>
+        <div data-reveal>
+          <h3>Hardware</h3>
+          <ul>
+            <li>Arduino and STM32 microcontrollers</li>
+            <li>Sensors and instrumentation</li>
+            <li>SolidWorks CAD and FEA</li>
+            <li>3D printing, soldering, mill and lathe</li>
+            <li>Vicon motion capture and Tekscan pressure mapping</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="certs__title" data-reveal>Certifications</h3>
+      <ul class="certs" id="certs">
+        <li data-reveal>
+          <button type="button" data-img="assets/certificates/cert-nvidia.jpeg" data-pdf="assets/certificates/cert-nvidia.pdf">
+            <span class="certs__name">Fundamentals of Deep Learning</span>
+            <span class="certs__by">NVIDIA Deep Learning Institute</span>
+            <span class="certs__year">2025</span>
+          </button>
+        </li>
+        <li data-reveal>
+          <button type="button" data-img="assets/certificates/cert-salesforce-agentforce.jpg" data-pdf="assets/certificates/cert-salesforce-agentforce.pdf">
+            <span class="certs__name">Artificial Intelligence and Agentforce</span>
+            <span class="certs__by">Iberoamerican Technology Foundation with Salesforce</span>
+            <span class="certs__year">2026</span>
+          </button>
+        </li>
+        <li data-reveal>
+          <button type="button" data-img="assets/certificates/cert-gcp.jpg" data-pdf="assets/certificates/cert-gcp.pdf">
+            <span class="certs__name">ICH Good Clinical Practice E6(R3)</span>
+            <span class="certs__by">The Global Health Network</span>
+            <span class="certs__year">2026</span>
+          </button>
+        </li>
+        <li data-reveal>
+          <button type="button" data-img="assets/certificates/cert-science-exercise.jpg" data-pdf="assets/certificates/cert-science-exercise.pdf">
+            <span class="certs__name">Science of Exercise</span>
+            <span class="certs__by">University of Colorado Boulder, Coursera</span>
+            <span class="certs__year">2026</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <img class="cert-peek" id="certPeek" alt="" aria-hidden="true">
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact wrap" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="sr-only">Contact</h2>
+    <p class="contact__lead" data-reveal>Open to internships and part-time roles in software, AI and robotics.</p>
+    <div class="contact__mail">
+      <a href="mailto:vmcarlos024@gmail.com" data-split-lines><span class="line"><span>vmcarlos024@gmail.com</span></span></a>
+      <button class="btn btn--ghost btn--sm" id="copyMail" type="button" data-mail="vmcarlos024@gmail.com">
+        <svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span>
+      </button>
+    </div>
+    <ul class="contact__links" data-reveal>
+      <li><a href="https://www.linkedin.com/in/carlos-velasco-moreno" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
+      <li><a href="https://github.com/CharlsMex24" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li>
+      <li><a href="assets/documents/cv.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg>Resume</a></li>
     </ul>
- 
-    <!-- RIGHT: CV + LinkedIn + GitHub icon buttons -->
-    <div class="nav-actions">
-        <!-- Document / CV -->
-        <a href="assets/documents/cv.pdf" class="nav-icon" title="View CV" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
-        </a>
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/carlos-velasco-moreno" class="nav-icon" title="LinkedIn" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <!-- GitHub -->
-        <a href="https://github.com/CharlsMex24" class="nav-icon" title="GitHub" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        </a>
-        <!-- Mobile hamburger -->
-        <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-</nav>
- 
-<!-- ════════════════════════════════════════
-     01 — HERO  (black + team photo)
-════════════════════════════════════════ -->
-<section id="home" class="s-black">
-    <canvas id="hero-canvas"></canvas>
-    <div class="net-hint" id="netHint" aria-hidden="true">
-        <span class="net-hint-arrow">↑</span>
-        <span class="net-hint-text">Move your cursor · touch here!</span>
-    </div>
-    <div class="aurora">
-        <div class="ab ab1"></div>
-        <div class="ab ab2"></div>
-        <div class="ab ab3"></div>
-    </div>
-    <div class="hero-grid"></div>
-    <div class="hero-inner">
-        <!-- LEFT: text content -->
-        <div class="hero-left">
-            <div class="hero-tag">
-                <span id="tw"></span><span class="tw-cursor"></span>
-            </div>
-            <h1 class="hero-name">
-                Carlos<br>
-                <span class="line2">Velasco</span>
-            </h1>
-            <p class="hero-sub">
-                Building the future at the intersection of <strong>mechatronics</strong>,
-                <strong>artificial intelligence</strong>, and <strong>energy-efficient systems</strong>.
-                Based in Monterrey, México.
-            </p>
-            <div class="hero-cta">
-                <a href="#portfolio" class="btn btn-primary">View my work →</a>
-                <a href="#contact"   class="btn btn-outline">Get in touch</a>
-            </div>
-            <div class="hero-stats">
-                <div><div class="stat-num" data-count="2">0</div><div class="stat-lbl">Shell Eco-marathon 2nd places</div></div>
-                <div><div class="stat-num" data-count="373">0</div><div class="stat-lbl">km/kWh peak efficiency</div></div>
-                <div><div class="stat-num">4th</div><div class="stat-lbl">Semester · ITESM</div></div>
-                <div><div class="stat-num" data-count="7">0</div><div class="stat-lbl">Certifications</div></div>
-            </div>
-        </div>
+  </section>
+</main>
 
-        <!-- RIGHT: floating browser window cards -->
-        <div class="hero-right">
-            <!-- Window 1: Shell Eco-marathon result -->
-            <div class="win-card win-shell" id="winShell">
-                <div class="win-chrome">
-                    <span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span>
-                    <span class="win-url">shell-eco.results</span>
-                </div>
-                <div class="win-body-shell">
-                    <div class="wb-badge">🏆 2nd Place</div>
-                    <div class="wb-num">373.2</div>
-                    <div class="wb-unit">km / kWh</div>
-                    <div class="wb-desc">Shell Eco-marathon Brazil 2025<br>Prototype Battery-Electric · Borregos Racing</div>
-                </div>
-            </div>
-
-            <!-- Window 2: Code snippet -->
-            <div class="win-card win-code" id="winCode">
-                <div class="win-chrome">
-                    <span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span>
-                    <span class="win-url">model.py</span>
-                </div>
-                <div class="win-body-code">
-                    <div><span style="color:#7c6af7">import</span> <span style="color:#22d3ee">numpy</span> as np</div>
-                    <div><span style="color:#7c6af7">from</span> <span style="color:#22d3ee">sklearn.neural_network</span> <span style="color:#7c6af7">import</span> MLP</div>
-                    <div>&nbsp;</div>
-                    <div><span style="color:#f59e0b">model</span> = MLP(<span style="color:#f43f5e">layers</span>=<span style="color:#a3e635">(128,64)</span>)</div>
-                    <div><span style="color:#f59e0b">model</span>.fit(X_train, y_train)</div>
-                    <div><span style="color:#5b5b7a"># </span><span style="color:#22d3ee">Accuracy: 94.3%</span></div>
-                </div>
-            </div>
-
-            <!-- Window 3: Chairless Chair -->
-            <div class="win-card win-exo" id="winExo">
-                <div class="win-chrome">
-                    <span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span>
-                    <span class="win-url">chairless-chair.project</span>
-                </div>
-                <div class="win-body-exo">
-                    <div class="we-icon">🦿</div>
-                    <div class="we-title">Chairless Chair</div>
-                    <div class="we-sub">Lower-Limb Passive Exoskeleton</div>
-                    <div class="we-track"><div class="we-fill"></div></div>
-                    <div class="we-meta"><span>Build progress</span><span>40%</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
-</section>
-
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     02 — ABOUT  (white)
-════════════════════════════════════════ -->
-<section id="about" class="s-white" data-theme="light">
-    <div class="section-inner">
-        <div class="section-header reveal">
-            <div class="s-label">About <span class="s-num">02</span></div>
-            <h2 class="s-title">Who I am<br><span class="g-text">I am</span></h2>
-        </div>
-        <div class="about-grid">
-            <div class="about-photo-wrap reveal">
-                <div class="about-photo">
-                    <img src="assets/images/profile/Carlos_Velasco.jpeg" alt="Carlos Velasco"
-                         onerror="this.parentElement.innerHTML='📸 Add images/about-photo.jpg'">
-                </div>
-                <div class="spec-panel">
-                    <div class="spec-row"><span class="spec-key">name</span><span class="spec-val">Carlos Velasco</span></div>
-                    <div class="spec-row"><span class="spec-key">university</span><span class="spec-val">ITESM Monterrey</span></div>
-                    <div class="spec-row"><span class="spec-key">degree</span><span class="spec-val">Mechatronics Eng.</span></div>
-                    <div class="spec-row"><span class="spec-key">semester</span><span class="spec-val">4th · 2026</span></div>
-                    <div class="spec-row"><span class="spec-key">status</span><span class="spec-val"><span class="live-dot"></span>Active</span></div>
-                </div>
-            </div>
-            <div class="about-text reveal rd1">
-                <p>I'm a <strong>Mechatronics Engineering</strong> student at <strong>Tecnológico de Monterrey (ITESM)</strong>, currently in my 4th semester. My focus is on <strong>AI, robotics, and automation</strong> — designing systems that think, move, and optimize in real time.</p>
-                <p>As part of <strong>Borregos Racing</strong>, I helped our team achieve <strong>2nd place at Shell Eco-marathon</strong> in both the Americas and Brazil editions (2025), reaching a peak energy efficiency of <strong>373.2 km/kWh</strong> in the Prototype Battery-Electric category.</p>
-                <p>I'm also developing a lower-limb <strong>passive exoskeleton — chairless chair type</strong> — designed to support workers in semi-seated postures without a physical chair. The device transfers body weight through a locking mechanical linkage at the knee directly to the ground, reducing muscle fatigue during prolonged standing-work cycles.</p>
-                <div class="tag-cloud">
-                    <span class="tag tag-b">Artificial Intelligence</span>
-                    <span class="tag tag-p">Robotics</span>
-                    <span class="tag tag-o">Energy Efficiency</span>
-                    <span class="tag tag-c">Embedded Systems</span>
-                    <span class="tag tag-b">Vehicle Design</span>
-                    <span class="tag tag-p">Biomechatronics</span>
-                    <span class="tag tag-o">Passive Exoskeletons</span>
-                    <span class="tag tag-c">3D Printing</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     03 — PORTFOLIO  (black)
-════════════════════════════════════════ -->
-<section id="portfolio" class="s-black" data-theme="dark">
-    <div class="section-inner">
-        <div class="section-header reveal">
-            <div class="s-label">Portfolio <span class="s-num">03</span></div>
-            <h2 class="s-title">Achievements &amp Projects<br></h2>
-        </div>
-        <div class="filter-row reveal">
-            <button class="flt active" data-f="all">All</button>
-            <button class="flt" data-f="competition">Competitions</button>
-            <button class="flt" data-f="course">Courses</button>
-            <button class="flt" data-f="project">Projects</button>
-        </div>
-        <div class="proj-grid">
- 
-            <!-- FEATURED: Chairless Chair -->
-            <div class="pcard feat pc-cyan reveal" data-cat="project">
-                <div class="pcard-img bg-cyan">
-                    <img src="assets/images/projects/exoskeleton.jpeg" alt="Chairless Chair" onerror="this.style.display='none'">
-                    <span class="card-icon">🦿</span>
-                    <span class="badge b-wip">● In progress</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Chairless Chair — Lower-Limb Passive Exoskeleton</div>
-                    <p class="pcard-desc">Designing and building a passive lower-limb exoskeleton that allows users to assume a stable semi-seated posture without a chair. A locking linkage mechanism at the knee transfers body weight through the exoskeleton frame directly to the floor, eliminating static muscular load on legs and lower back. Target applications include industrial assembly lines and physical rehabilitation. Designed with an adjustable aluminum frame, 3D-printed articulation joints, and a quick-release buckle system.</p>
-                    <div class="pills">
-                        <span class="pill pl-c">Passive Mechanism</span>
-                        <span class="pill pl-b">Knee Linkage</span>
-                        <span class="pill pl-o">Aluminum Frame</span>
-                        <span class="pill pl-a">3D Printing</span>
-                        <span class="pill pl-p">Biomechanics</span>
-                        <span class="pill pl-pk">Ergonomics</span>
-                    </div>
-                    <div class="wip-bar-wrap">
-                        <div class="wip-lbl"><span>Build progress</span><span>40%</span></div>
-                        <div class="wip-track"><div class="wip-fill" data-pct="40"></div></div>
-                    </div>
-                </div>
-            </div>
- 
-            <!-- Shell Brazil -->
-            <div class="pcard pc-orange reveal rd1" data-cat="competition">
-                <div class="pcard-img bg-orange">
-                    <img src="assets/images/events/Brazil2025.jpg" alt="Shell Brazil" onerror="this.style.display='none'">
-                    <span class="card-icon">🏆</span>
-                    <span class="badge b-comp">Competition</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Shell Eco-marathon Brazil 2025</div>
-                    <p class="pcard-desc">2nd place in Prototype Battery-Electric category. Our vehicle achieved <strong style="color:#fb923c">373.2 km/kWh</strong> energy efficiency with Borregos Racing.</p>
-                    <div class="pills"><span class="pill pl-o">2nd Place 🥈</span><span class="pill pl-a">373.2 km/kWh</span><span class="pill pl-o">Prototype EV</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">Aug 2025</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-shell-brazil.pdf','Shell Eco-marathon Brazil 2025 · 2nd Place')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
- 
-            <!-- Shell Americas -->
-            <div class="pcard pc-amber reveal rd2" data-cat="competition">
-                <div class="pcard-img bg-amber">
-                    <img src="assets/images/events/americas2025.jpg" alt="Shell Americas" onerror="this.style.display='none'">
-                    <span class="card-icon">🏆</span>
-                    <span class="badge b-comp">Competition</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Shell Eco-marathon Americas 2025</div>
-                    <p class="pcard-desc">2nd place in Prototype Battery-Electric category. Reached <strong style="color:#fbbf24">196.8 mi/kWh</strong> with Borregos Racing in the Americas edition.</p>
-                    <div class="pills"><span class="pill pl-a">2nd Place 🥈</span><span class="pill pl-o">196.8 mi/kWh</span><span class="pill pl-a">Prototype EV</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">Apr 2025</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-shell-americas.pdf','Shell Eco-marathon Americas 2025 · 2nd Place')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AgentForce -->
-            <div class="pcard pc-purple reveal rd3" data-cat="course">
-                <div class="pcard-img bg-purple">
-                    <img src="assets/certificates/cert-salesforce-agentforce.jpg" alt="Salesforce Agentforce Certificate" onerror="this.style.display='none'">
-                    <span class="card-icon">🤖</span>
-                    <span class="badge b-course">Course</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Artificial Intelligence &amp; Agentforce</div>
-                    <p class="pcard-desc">20-hour course by the <strong>Iberoamerican Technology Foundation</strong> in partnership with <strong>Salesforce</strong>, part of the <em>Introduction to AI Engineering</em> program. Hands-on theory and practice inside the Salesforce ecosystem — building AI agents with Agentforce, prompt design, and the Atlas reasoning engine.</p>
-                    <div class="pills"><span class="pill pl-b">Salesforce</span><span class="pill pl-p">Agentforce</span><span class="pill pl-b">AI Agents</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">May 2026</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-salesforce-agentforce.pdf','Inteligencia Artificial y Agentforce · Iberoamerican Technology Foundation x Salesforce')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VibeMap -->
-            <div class="pcard pc-cyan reveal rd3" data-cat="project">
-                <div class="pcard-img bg-cyan">
-                    <img src="assets/images/projects/vibemap.jpg" alt="VibeMap UI" onerror="this.style.display='none'">
-                    <span class="card-icon">🗺️</span>
-                    <span class="badge b-comp">Hackathon</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">VibeMap — AI Architecture Visualizer</div>
-                    <p class="pcard-desc"><em>"Drop your idea. Get the map."</em> Drop a project folder, get back an interactive Mermaid architecture map with per-file drill-down — built for understanding AI-generated code instead of just copy-pasting it. Built in 8 hours at HackaDays (Tec de Monterrey) — first hackathon for the whole team.</p>
-                    <div class="pills">
-                        <span class="pill pl-p">React</span>
-                        <span class="pill pl-b">TypeScript</span>
-                        <span class="pill pl-p">Gemini API</span>
-                        <span class="pill pl-c">Mermaid.js</span>
-                        <span class="pill pl-b">Tailwind</span>
-                    </div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">HackaDays</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/images/projects/vibemap.jpg','VibeMap — AI Architecture Visualizer · HackaDays, Tec de Monterrey')">View project →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ICH Good Clinical Practice -->
-            <div class="pcard pc-green reveal rd3" data-cat="course">
-                <div class="pcard-img bg-green">
-                    <img src="assets/certificates/cert-gcp.jpg" alt="ICH Good Clinical Practice Certificate" onerror="this.style.display='none'">
-                    <span class="card-icon">🔬</span>
-                    <span class="badge b-course">Course</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">ICH Good Clinical Practice E6(R3)</div>
-                    <p class="pcard-desc">International standard governing the ethical and scientific conduct of clinical trials involving human subjects. The e-learning by <strong>The Global Health Network</strong> covers informed consent, investigator responsibilities, IRB/IEC oversight, and data integrity. Mutually recognized by <strong>TransCelerate BioPharma</strong> for clinical trial sponsors. Completed at 100% as part of SHIELD's research scholar training at Tec de Monterrey.</p>
-                    <div class="pills"><span class="pill pl-g">Clinical Research</span><span class="pill pl-g">ICH E6(R3)</span><span class="pill pl-a">100% score</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">May 2026</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-gcp.pdf','ICH Good Clinical Practice E6(R3) · The Global Health Network')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Science of Exercise -->
-            <div class="pcard pc-amber reveal rd3" data-cat="course">
-                <div class="pcard-img bg-amber">
-                    <img src="assets/certificates/cert-science-exercise.jpg" alt="Science of Exercise Certificate" onerror="this.style.display='none'">
-                    <span class="card-icon">💪</span>
-                    <span class="badge b-course">Course</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Science of Exercise</div>
-                    <p class="pcard-desc">Coursera certification by the <strong>University of Colorado Boulder</strong>, taught by Prof. Robert Mazzeo (Department of Integrative Physiology). Covers exercise physiology fundamentals — cardiovascular and metabolic responses to physical activity, energy systems, fatigue, and training adaptations. Direct background for my biomechatronics work on the chairless-chair lower-limb exoskeleton.</p>
-                    <div class="pills"><span class="pill pl-a">Exercise Physiology</span><span class="pill pl-b">CU Boulder</span><span class="pill pl-p">Coursera</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">May 2026</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-science-exercise.pdf','Science of Exercise · University of Colorado Boulder (Coursera)')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
- 
-            <!-- Santander AI -->
-            <div class="pcard pc-purple reveal rd3" data-cat="course">
-                <div class="pcard-img bg-purple">
-                    <img src="assets/certificates/cert-santander.png" alt="Santander AI" onerror="this.style.display='none'">
-                    <span class="card-icon">🧠</span>
-                    <span class="badge b-course">Course</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Introduction to AI Engineering</div>
-                    <p class="pcard-desc">Santander Open Academy certification covering ML fundamentals, neural networks, and practical AI for engineering applications.</p>
-                    <div class="pills"><span class="pill pl-p">Machine Learning</span><span class="pill pl-b">Neural Networks</span><span class="pill pl-p">Santander</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">2025</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-santander.png','Introduction to AI Engineering · Santander Open Academy')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NVIDIA -->
-            <div class="pcard pc-green reveal rd3" data-cat="course">
-                <div class="pcard-img bg-green">
-                    <img src="assets/certificates/cert-nvidia.jpeg" alt="NVIDIA Certificate" onerror="this.style.display='none'">
-                    <span class="card-icon">⚡</span>
-                    <span class="badge b-course">Course</span>
-                </div>
-                <div class="pcard-body">
-                    <div class="pcard-title">Fundamentals of Deep Learning</div>
-                    <p class="pcard-desc">NVIDIA Deep Learning Institute certification covering neural network fundamentals, training techniques, and practical deep learning applications on GPU.</p>
-                    <div class="pills"><span class="pill pl-g">NVIDIA</span><span class="pill pl-p">Deep Learning</span><span class="pill pl-b">GPU</span></div>
-                    <div class="pcard-meta">
-                        <span class="pcard-date">2025</span>
-                        <a href="#" class="pcard-link" onclick="openModal('assets/certificates/cert-nvidia.jpeg','NVIDIA Certification')">View certificate →</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
- 
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     04 — SKILLS  (white)
-════════════════════════════════════════ -->
-<section id="skills" class="s-white" data-theme="light">
-    <div class="section-inner">
-        <div class="section-header reveal">
-            <div class="s-label">Skills <span class="s-num">04</span></div>
-            <h2 class="s-title">What I work with<br></h2>
-        </div>
-        <div class="sk-rows">
-            <!-- Programming -->
-            <div class="sk-row reveal">
-                <div class="sk-row-label">
-                    <span class="sk-row-accent sk-b-acc"></span>
-                    Programming
-                    <span class="sk-row-num">01</span>
-                </div>
-                <div class="sk-chips">
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=py" alt="Python">Python</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=cpp" alt="C++">C++</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=js" alt="JS">JavaScript</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=matlab" alt="MATLAB">MATLAB</span>
-                </div>
-            </div>
-            <!-- AI & ML -->
-            <div class="sk-row reveal rd1">
-                <div class="sk-row-label">
-                    <span class="sk-row-accent sk-p-acc"></span>
-                    AI &amp; ML
-                    <span class="sk-row-num">02</span>
-                </div>
-                <div class="sk-chips">
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=pytorch" alt="PyTorch">PyTorch</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=tensorflow" alt="TF">TensorFlow</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=opencv" alt="OpenCV">OpenCV</span>
-                    <span class="sk-chip">🧠 scikit-learn</span>
-                </div>
-            </div>
-            <!-- Robotics & HW -->
-            <div class="sk-row reveal rd2">
-                <div class="sk-row-label">
-                    <span class="sk-row-accent sk-c-acc"></span>
-                    Robotics &amp; HW
-                    <span class="sk-row-num">03</span>
-                </div>
-                <div class="sk-chips">
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=arduino" alt="Arduino">Arduino</span>
-                    <span class="sk-chip">🔧 SolidWorks</span>
-                    <span class="sk-chip">🖨️ 3D Printing</span>
-                </div>
-            </div>
-            <!-- Tools -->
-            <div class="sk-row reveal rd3">
-                <div class="sk-row-label">
-                    <span class="sk-row-accent sk-i-acc"></span>
-                    Tools
-                    <span class="sk-row-num">04</span>
-                </div>
-                <div class="sk-chips">
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=git" alt="Git">Git</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=linux" alt="Linux">Linux</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=vscode" alt="VSCode">VS Code</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=flask" alt="Flask">Flask</span>
-                    <span class="sk-chip"><img src="https://skillicons.dev/icons?i=debian" alt="Debian">Debian</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     05 — EXPERIENCE  (black)
-════════════════════════════════════════ -->
-<section id="experience" class="s-black" data-theme="dark">
-    <div class="section-inner narrow">
-        <div class="section-header reveal">
-            <div class="s-label">Experience <span class="s-num">05</span></div>
-            <h2 class="s-title">Where I've contributed<br></h2>
-        </div>
-        <div class="timeline">
-            <div class="tl-item reveal">
-                <div class="tl-date">2024 – Present</div>
-                <h3 class="tl-title">Borregos Racing · Vehicle Team Member</h3>
-                <div class="tl-org">ITESM Monterrey</div>
-                <p class="tl-desc">Design, fabrication, and testing of an energy-efficient prototype vehicle. Competed at Shell Eco-marathon Americas and Brazil achieving 2nd place in the Prototype Battery-Electric category. Peak efficiency of 373.2 km/kWh. Responsible for energy systems optimization and vehicle subsystem integration.</p>
-            </div>
-            <div class="tl-item reveal">
-                <div class="tl-date">2025 – Present</div>
-                <h3 class="tl-title">SHIELD · Research Scholar</h3>
-                <div class="tl-org">ITESM Monterrey</div>
-                <p class="tl-desc">Becario de investigación en SHIELD, desarrollando proyectos de innovación tecnológica en robótica, automatización e inteligencia artificial como parte del servicio becario institucional de Mecatrónica.</p>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     06 — EDUCATION  (white)
-════════════════════════════════════════ -->
-<section id="education" class="s-white" data-theme="light">
-    <div class="section-inner">
-        <div class="section-header reveal">
-            <div class="s-label">Education <span class="s-num">06</span></div>
-            <h2 class="s-title">Academic background<br></h2>
-        </div>
-        <div class="edu-grid">
-            <div class="edu-card reveal">
-                <div class="edu-hd"><div class="edu-logo">🎓</div><div><div class="edu-school">Tecnológico de Monterrey</div><div class="edu-date">Aug 2024 – Present</div></div></div>
-                <div class="edu-degree">B.S. Mechatronics Engineering</div>
-                <div class="edu-note">4th Semester · Campus Monterrey</div>
-            </div>
-            <div class="edu-card reveal rd1">
-                <div class="edu-hd"><div class="edu-logo" style="background:rgba(249,115,22,.08);">📜</div><div><div class="edu-school">Santander Open Academy</div><div class="edu-date">2025</div></div></div>
-                <div class="edu-degree">Introduction to AI Engineering</div>
-                <div class="edu-note">Online certification program</div>
-            </div>
-            <div class="edu-card reveal rd2">
-                <div class="edu-hd"><div class="edu-logo" style="background:rgba(245,158,11,.08);">🏎️</div><div><div class="edu-school">Shell Eco-marathon</div><div class="edu-date">Apr 2025 · Aug 2025</div></div></div>
-                <div class="edu-degree">2× Competition Certificate</div>
-                <div class="edu-note">Americas &amp; Brazil · Prototype Battery-Electric</div>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<div class="band"></div>
- 
-<!-- ════════════════════════════════════════
-     07 — CONTACT  (black)
-════════════════════════════════════════ -->
-<section id="contact" class="s-black" data-theme="dark">
-    <div class="section-inner">
-        <div class="contact-inner">
-            <div class="section-header reveal" style="text-align:center;">
-                <div class="s-label" style="justify-content:center;">Contact <span class="s-num">07</span></div>
-                <h2 class="s-title">Let's connect<br></h2>
-            </div>
-            <p class="contact-sub reveal">Open to internships, part-time roles, and collaboration in AI, robotics, and automation.</p>
-            <div class="contact-grid reveal">
-                <a href="mailto:vmcarlos024@gmail.com" class="clink cl-em">
-                    <span class="clink-icon">✉️</span>
-                    <span class="clink-label">Email</span>
-                    <span class="clink-val">vmcarlos024@gmail.com</span>
-                </a>
-                <a href="https://github.com/CharlsMex24" class="clink cl-gh" target="_blank" rel="noopener">
-                    <span class="clink-icon">🐙</span>
-                    <span class="clink-label">GitHub</span>
-                    <span class="clink-val">github.com/CharlsMex24</span>
-                </a>
-                <a href="https://www.linkedin.com/in/carlos-velasco-moreno" class="clink cl-li" target="_blank" rel="noopener">
-                    <span class="clink-icon">💼</span>
-                    <span class="clink-label">LinkedIn</span>
-                    <span class="clink-val">linkedin.com/in/carlos-velasco-moreno</span>
-                </a>
-                <a href="assets/documents/cv.pdf" class="clink cl-cv" target="_blank" rel="noopener">
-                    <span class="clink-icon">📄</span>
-                    <span class="clink-label">Resume / CV</span>
-                    <span class="clink-val">View and download PDF</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<footer>
-    <p>Built by <span class="hl">Carlos Velasco</span> · Last updated: August 2026</p>
+<footer class="footer wrap">
+  <p>Carlos Velasco, 2026</p>
+  <p>Updated September 2026</p>
+  <a href="#top">Back to top</a>
 </footer>
- 
-<!-- CHATBOT — temporarily removed: it had no CSS and no JS, so it rendered
-     broken (an unstyled button + a dead window). Ask to build a fully styled,
-     working local chatbot and it can return here. -->
 
-<script src="assets/js/main.js"></script>
+<dialog class="viewer" id="viewer" aria-labelledby="viewerTitle">
+  <div class="viewer__bar">
+    <p id="viewerTitle"></p>
+    <a class="link" id="viewerPdf" href="#" target="_blank" rel="noopener">Open PDF <svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+    <button class="viewer__close" type="button" id="viewerClose" aria-label="Close">
+      <svg class="i" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <img id="viewerImg" alt="">
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
