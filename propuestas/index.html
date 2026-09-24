@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propuestas del portafolio</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --ink: #16181d; --muted: #5a5f6b; --bg: #f2f2f0; --line: #d9d9d4; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 56px 20px 80px; }
+  h1 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin: 0 0 8px; letter-spacing: -.02em; }
+  main > p { color: var(--muted); max-width: 60ch; margin: 0 0 40px; }
+  .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+  article { display: grid; gap: 12px; align-content: start; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .pair img, .single { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 4px; }
+  h2 { margin: 6px 0 0; font-size: 1.25rem; }
+  article p { margin: 0; color: var(--muted); }
+  a.go { justify-self: start; margin-top: 4px; padding: .7em 1.2em; border-radius: 999px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; }
+  a.go:hover { background: #333845; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Propuestas del portafolio</h1>
+  <p>Dos direcciones nuevas con 3D y la versión actual como base. Ábrelas en computadora con las animaciones de Windows activadas para ver el movimiento completo.</p>
+  <div class="opts">
+    <article>
+      <div class="pair"><img src="shots/a0.jpg" alt="Opción A, portada con el brazo robótico" width="960" height="600"><img src="shots/a1.jpg" alt="Opción A, el brazo desarmado con etiquetas" width="960" height="600"></div>
+      <h2>A. Taller</h2>
+      <p>Un brazo robótico real (Franka Panda) sobre fondo naranja industrial. Sigue tu cursor con cinemática inversa en vivo, y al hacer scroll se desarma pieza por pieza: cada parte es una disciplina tuya.</p>
+      <a class="go" href="a-taller/">Abrir opción A</a>
+    </article>
+    <article>
+      <div class="pair"><img src="shots/b0.jpg" alt="Opción B, portada con el carro dibujado como plano" width="960" height="600"><img src="shots/b1.jpg" alt="Opción B, el carro en tres vistas ortogonales" width="960" height="600"></div>
+      <h2>B. Plano</h2>
+      <p>Todo el sitio es un plano técnico azul. El carro de Shell Eco-marathon se dibuja solo, con aristas ocultas punteadas, y se proyecta en sus tres vistas. La experiencia es una tabla de revisiones y los proyectos, una lista de partes.</p>
+      <a class="go" href="b-plano/">Abrir opción B</a>
+    </article>
+    <article>
+      <h2>Base actual</h2>
+      <p>La versión limpia de ayer, sin 3D. Sirve para comparar.</p>
+      <a class="go" href="../">Abrir versión actual</a>
+    </article>
+  </div>
+</main>
+</body>
+</html>

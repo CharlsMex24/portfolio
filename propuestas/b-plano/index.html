@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="js-motion">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlos Velasco | Mechatronics Engineering</title>
+<meta name="description" content="Mechatronics engineering student at Tec de Monterrey. AI agents at Mostla, a passive exoskeleton, biomechanics research and two Shell Eco-marathon podiums.">
+<meta name="theme-color" content="#1b3d9f">
+<link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js">
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
+} }
+</script>
+<script>
+  setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('js-motion'); }, 3500);
+</script>
+</head>
+<body>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<!-- The drawing sheet: border with zone references, and a title block that is also the navigation -->
+<div class="frame" aria-hidden="true">
+  <ol class="frame__cols"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li></ol>
+  <ol class="frame__rows"><li>A</li><li>B</li><li>C</li><li>D</li><li>E</li><li>F</li></ol>
+</div>
+
+<aside class="tblock" aria-label="Sheet index">
+  <div class="tblock__who"><strong>Carlos Velasco</strong><span>Mechatronics engineering, Tec de Monterrey</span></div>
+  <div class="tblock__sheet"><span>Sheet</span><strong id="sheetName">Cover</strong><span id="sheetNo">1 of 9</span></div>
+  <nav class="tblock__nav" aria-label="Sections">
+    <a href="#racing">Racing</a>
+    <a href="#work">Exoskeleton</a>
+    <a href="#agent">AI agent</a>
+    <a href="#experience">Revisions</a>
+    <a href="#contact">Contact</a>
+    <a href="../../assets/documents/cv.pdf" target="_blank" rel="noopener">Resume</a>
+  </nav>
+</aside>
+
+<main id="main">
+
+  <section class="hero sheet" id="top" data-sheet="Cover">
+    <div class="hero__copy">
+      <h1 data-reveal>Every machine starts as a drawing.</h1>
+      <p class="hero__sub" data-reveal>Mine end up as hardware you can wear, a car that ran 373.2&nbsp;km on one kWh, and software that has to prove what it says. I'm Carlos Velasco, a mechatronics engineering student at Tec de Monterrey.</p>
+      <div class="hero__cta" data-reveal>
+        <a class="btn btn--solid" href="#racing">Open the drawings</a>
+        <a class="btn btn--line" href="../../assets/documents/cv.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+    <p class="hero__caption" data-reveal>Fig. 1. Shell Eco-marathon prototype, hidden lines dashed. Move your cursor to turn it.</p>
+  </section>
+
+  <section class="peak sheet" id="racing" data-sheet="Borregos Racing" aria-labelledby="peak-title">
+    <div class="peak__pin">
+      <div class="peak__head">
+        <h2 id="peak-title">Second place, twice</h2>
+        <p>Shell Eco-marathon 2025 with Borregos Racing, Prototype Battery-Electric. Keep scrolling and the car unfolds into its three views.</p>
+      </div>
+      <svg class="peak__proj" id="proj" aria-hidden="true"></svg>
+      <p class="view-label" data-view="top">Top view</p>
+      <p class="view-label" data-view="side">Side view</p>
+      <p class="view-label" data-view="front">Front view</p>
+      <ol class="peak__notes" id="notes">
+        <li><span class="n">1</span>Brazil, August 2025: <strong><span class="num" data-count="373.2">373.2</span> km/kWh</strong>, 2nd place. <a href="../../assets/certificates/cert-shell-brazil.pdf" target="_blank" rel="noopener">Certificate</a></li>
+        <li><span class="n">2</span>Americas, April 2025: <strong><span class="num" data-count="196.8">196.8</span> mi/kWh</strong>, 2nd place. <a href="../../assets/certificates/cert-shell-americas.pdf" target="_blank" rel="noopener">Certificate</a></li>
+        <li><span class="n">3</span>My part: energy-systems optimization and subsystem integration, under international safety and technical rules.</li>
+        <li><span class="n">4</span>Illustration of an Eco-marathon prototype, not the team's CAD. Not to scale.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="photos wrap" aria-label="Race photos">
+    <figure data-reveal-img><img src="../../assets/images/events/Brazil2025.jpg" alt="Borregos Racing team holding the Mexican flag next to their car at Shell Eco-marathon Brazil 2025" loading="lazy" width="1600" height="1066"><figcaption>Fig. 2. Technical inspection, Brazil 2025</figcaption></figure>
+    <figure data-reveal-img><img src="../../assets/images/events/americas2025.jpg" alt="Borregos Racing team with their car after passing technical inspection at Shell Eco-marathon Americas 2025" loading="lazy" width="1600" height="1066"><figcaption>Fig. 3. Technical inspection, Americas 2025</figcaption></figure>
+  </section>
+
+  <section class="about wrap sheet" id="about" data-sheet="About">
+    <p class="about__lead" data-reveal>I studied medicine for two years before switching to mechatronics. I still find the human body fascinating, so a lot of my work ends up close to it: an exoskeleton you wear, a wristband that reads your heart rate, motion-capture research. The rest is software, which is the part I enjoy most.</p>
+    <table class="spec" data-reveal>
+      <caption>Specification</caption>
+      <tr><th scope="row">Studying</th><td>B.S. Mechatronics Engineering, Tec de Monterrey. 5th semester, GPA 93.67/100.</td></tr>
+      <tr><th scope="row">Working</th><td>Agentic AI Engineer Intern at Mostla, Tec's emerging technologies lab.</td></tr>
+      <tr><th scope="row">Researching</th><td>Research scholar in the SHIELD group, biomechanics data.</td></tr>
+      <tr><th scope="row">Speaking</th><td>Spanish (native), English (full professional).</td></tr>
+    </table>
+  </section>
+
+  <section class="exo wrap sheet" id="work" data-sheet="Exoskeleton" aria-labelledby="exo-title">
+    <div class="exo__text">
+      <h2 id="exo-title" data-reveal>Chairless-chair exoskeleton</h2>
+      <p data-reveal>A passive exoskeleton that locks at the knee and sends your weight to the floor, so you can sit down anywhere. Course project, 2026. I did the concept, the SolidWorks model, the FEA, the 3D printing and the assembly.</p>
+      <ol class="notes" data-reveal>
+        <li><span class="n">1</span>Static load <span class="num" data-count="750">750</span> N on aluminum 6061-T6.</li>
+        <li><span class="n">2</span>Peak von Mises stress <span class="num" data-count="64.59">64.59</span> MPa, yield 276 MPa.</li>
+        <li><span class="n">3</span>First buckling mode at a load factor of about 300.</li>
+        <li><span class="n">4</span>Printed at full scale, wooden diagonals, strap mounts. Worn on campus.</li>
+      </ol>
+    </div>
+    <figure class="exo__f1" data-reveal-img>
+      <video src="../../assets/images/projects/exo-walk.mp4" poster="../../assets/images/projects/exo-walk-poster.jpg" muted loop playsinline preload="none" aria-label="Carlos walking with the exoskeleton and sitting down on it"></video>
+      <figcaption>Fig. 4. Walk, then sit</figcaption>
+    </figure>
+    <figure class="exo__f2" data-reveal-img><img src="../../assets/images/projects/exo-cad.jpg" alt="SolidWorks model of the exoskeleton leg" loading="lazy" width="938" height="1273"><figcaption>Fig. 5. CAD</figcaption></figure>
+    <figure class="exo__f3" data-reveal-img><img src="../../assets/images/projects/exo-fea-stress.jpg" alt="Von Mises stress plot of the exoskeleton under a 750 N load" loading="lazy" width="660" height="457"><figcaption>Fig. 6. Von Mises stress, 750 N</figcaption></figure>
+  </section>
+
+  <section class="agent wrap sheet" id="agent" data-sheet="AI agent" aria-labelledby="agent-title">
+    <div class="agent__head">
+      <h2 id="agent-title" data-reveal>An AI agent that has to show its sources</h2>
+      <p data-reveal>At Mostla I'm building an agent that classifies company information. Every answer has to come with an exact quote from its source, and a deterministic verifier checks that quote before anything gets saved.</p>
+    </div>
+    <svg class="flow" viewBox="0 0 960 120" role="img" aria-label="Flow: source text goes to the language model, which proposes an answer with a quote; the verifier searches the quote in the source; only verified answers are stored" data-reveal>
+      <g class="flow__box"><rect x="2" y="30" width="180" height="60"/><text x="92" y="65">Source text</text></g>
+      <g class="flow__box"><rect x="262" y="30" width="180" height="60"/><text x="352" y="58">Language model</text><text x="352" y="76" class="flow__sub">answer + quote</text></g>
+      <g class="flow__box flow__box--key"><rect x="522" y="30" width="180" height="60"/><text x="612" y="58">Verifier</text><text x="612" y="76" class="flow__sub">exact match only</text></g>
+      <g class="flow__box"><rect x="782" y="30" width="176" height="60"/><text x="870" y="65">Saved</text></g>
+      <path class="flow__arrow" d="M182 60 H254 M246 54 L256 60 L246 66 M442 60 H514 M506 54 L516 60 L506 66 M702 60 H774 M766 54 L776 60 L766 66"/>
+      <path class="flow__arrow flow__arrow--back" d="M612 90 V110 H92 V92 M86 100 L92 90 L98 100"/>
+      <text x="352" y="114" class="flow__sub">no quote in the source: rejected</text>
+    </svg>
+    <div class="verifier" data-reveal>
+      <div class="verifier__bar">
+        <p>Try it. The model proposes four answers, each with a quote. Only quotes that really appear in the source get through.</p>
+        <button class="btn btn--solid" id="runVerifier" type="button">Run verifier</button>
+      </div>
+      <div class="verifier__grid">
+        <div class="verifier__source">
+          <p class="label">Source text</p>
+          <p id="sourceText">The frame was modeled in SolidWorks and checked with a static study with a 750 N load. The result was a 64.59 MPa peak von Mises stress, below the 276 MPa yield strength of aluminum 6061-T6. The printed prototype was tested by wearing it around campus.</p>
+        </div>
+        <div class="verifier__claims">
+          <p class="label">Model answers</p>
+          <ul id="claims">
+            <li data-quote="a static study with a 750 N load"><strong>Designed for a 750 N load</strong><q>a static study with a 750 N load</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="the carbon fiber frame"><strong>Made of carbon fiber</strong><q>the carbon fiber frame</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="64.59 MPa peak von Mises stress, below the 276 MPa yield strength"><strong>Stress stays below yield</strong><q>64.59 MPa peak von Mises stress, below the 276 MPa yield strength</q><span class="verdict" aria-live="polite"></span></li>
+            <li data-quote="tested outdoors on campus"><strong>Tested outdoors</strong><q>tested outdoors on campus</q><span class="verdict" aria-live="polite"></span></li>
+          </ul>
+          <label class="verifier__own" for="ownQuote">Or test your own quote</label>
+          <div class="verifier__input">
+            <input id="ownQuote" type="text" placeholder="e.g. aluminum 6061-T6" autocomplete="off" spellcheck="false">
+            <span id="ownResult" class="verdict" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+      <p class="verifier__note">A simplified demo with my own exoskeleton notes as the source. Not Mostla data.</p>
+    </div>
+  </section>
+
+  <section class="parts wrap sheet" id="projects" data-sheet="Parts list" aria-labelledby="parts-title">
+    <h2 id="parts-title" data-reveal>Parts list</h2>
+    <p class="parts__sub" data-reveal>Everything else I've built, one row each.</p>
+    <table class="bom">
+      <thead><tr><th scope="col">Item</th><th scope="col">Name</th><th scope="col">Description</th><th scope="col">Made with</th></tr></thead>
+      <tbody>
+        <tr data-reveal><td>1</td><th scope="row"><img src="../../assets/images/projects/questbody.jpg" alt="" loading="lazy" width="2160" height="1350">QuestBody</th><td>Wristband concept and working web prototype: a simulated 1&nbsp;Hz biometric feed triggers RPG quests, XP and loot in real time. Team of three; I built the demo and the financial model.</td><td>React, TypeScript, Vite</td></tr>
+        <tr data-reveal><td>2</td><th scope="row"><img src="../../assets/images/projects/vibemap.jpg" alt="" loading="lazy" width="1600" height="1000">VibeMap</th><td>Drop in a project folder, get an interactive architecture map. Built in 8 hours at HackaDays. <a href="https://github.com/CharlsMex24/VibeMap_Hackathon" target="_blank" rel="noopener">Source</a></td><td>React, TypeScript, Gemini, Mermaid.js</td></tr>
+        <tr data-reveal><td>3</td><th scope="row"><img src="../../assets/images/projects/borregos-racing-site.jpg" alt="" loading="lazy" width="2000" height="1250">Borregos Racing website</th><td>The team's website, written from scratch.</td><td>HTML, CSS, JavaScript</td></tr>
+        <tr data-reveal><td>4</td><th scope="row">Clinic operations simulation</th><td>Three clinic operations at once, modeled with stochastic arrival and service data to find bottlenecks and improve patient flow.</td><td>Rockwell Arena</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="revs wrap sheet" id="experience" data-sheet="Revisions" aria-labelledby="revs-title">
+    <h2 id="revs-title" data-reveal>Revision history</h2>
+    <table class="revtable">
+      <thead><tr><th scope="col">Rev</th><th scope="col">Date</th><th scope="col">Description</th></tr></thead>
+      <tbody>
+        <tr data-reveal><td>D</td><td>Aug 2026 to now</td><td><strong>Agentic AI Engineer Intern, Mostla.</strong> Python data pipeline with web scraping and REST APIs, custom tools and an AI skill for the language model, the quote verifier, evaluation sets, tests and on-premise model deployment.</td></tr>
+        <tr data-reveal><td>C</td><td>2025 to now</td><td><strong>Research Scholar, SHIELD Research Group.</strong> Python pipelines for Vicon motion capture and Tekscan pressure data: cleaning raw exports, filtering off-sensor frames and fitting 95% confidence ellipses to center-of-force paths across nine trials.</td></tr>
+        <tr data-reveal><td>B</td><td>Feb to Dec 2025</td><td><strong>Vehicle Team Member, Borregos Racing.</strong> Energy-systems optimization and subsystem integration. Second place at Shell Eco-marathon Americas and Brazil.</td></tr>
+        <tr data-reveal id="education"><td>A</td><td>Aug 2024</td><td><strong>B.S. Mechatronics Engineering, Tec de Monterrey</strong>, expected 2028. GPA 93.67/100. Before that, two years of medicine.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="tooling wrap sheet" id="skills" data-sheet="Tooling" aria-labelledby="tooling-title">
+    <h2 id="tooling-title" data-reveal>Tooling and approvals</h2>
+    <div class="tooling__grid">
+      <div data-reveal><h3>Software</h3><p>Python (NumPy, Pandas, Matplotlib, scikit-learn), C and C++, JavaScript, TypeScript, React, MATLAB, Git, Linux.</p></div>
+      <div data-reveal><h3>AI and data</h3><p>LLM and API integration, AI agents with custom tools, evaluation sets, deep learning fundamentals, data analysis.</p></div>
+      <div data-reveal><h3>Hardware</h3><p>STM32 and Arduino, sensors and instrumentation, SolidWorks CAD and FEA, 3D printing, soldering, mill and lathe, Vicon and Tekscan.</p></div>
+    </div>
+    <ul class="stamps">
+      <li data-reveal><button type="button" data-cert="Fundamentals of Deep Learning" data-img="../../assets/certificates/cert-nvidia.jpeg" data-pdf="../../assets/certificates/cert-nvidia.pdf"><strong>Fundamentals of Deep Learning</strong><span>NVIDIA Deep Learning Institute, 2025</span></button></li>
+      <li data-reveal><button type="button" data-cert="Artificial Intelligence and Agentforce" data-img="../../assets/certificates/cert-salesforce-agentforce.jpg" data-pdf="../../assets/certificates/cert-salesforce-agentforce.pdf"><strong>Artificial Intelligence and Agentforce</strong><span>Iberoamerican Technology Foundation with Salesforce, 2026</span></button></li>
+      <li data-reveal><button type="button" data-cert="ICH Good Clinical Practice E6(R3)" data-img="../../assets/certificates/cert-gcp.jpg" data-pdf="../../assets/certificates/cert-gcp.pdf"><strong>ICH Good Clinical Practice E6(R3)</strong><span>The Global Health Network, 2026</span></button></li>
+      <li data-reveal><button type="button" data-cert="Science of Exercise" data-img="../../assets/certificates/cert-science-exercise.jpg" data-pdf="../../assets/certificates/cert-science-exercise.pdf"><strong>Science of Exercise</strong><span>University of Colorado Boulder, Coursera, 2026</span></button></li>
+    </ul>
+  </section>
+
+  <section class="contact wrap sheet" id="contact" data-sheet="Contact" aria-labelledby="contact-title">
+    <h2 id="contact-title" data-reveal>Write to me</h2>
+    <p data-reveal>Open to internships and part-time roles in software, AI and robotics.</p>
+    <a class="contact__mail" href="mailto:vmcarlos024@gmail.com" data-reveal>vmcarlos024@gmail.com</a>
+    <div class="contact__links" data-reveal>
+      <button class="btn btn--solid" id="copyMail" type="button" data-mail="vmcarlos024@gmail.com"><span>Copy email</span></button>
+      <a class="btn btn--line" href="https://www.linkedin.com/in/carlos-velasco-moreno" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn--line" href="https://github.com/CharlsMex24" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="contact__foot">Carlos Velasco, 2026</p>
+  </section>
+</main>
+
+<dialog class="viewer" id="viewer" aria-labelledby="viewerTitle">
+  <div class="viewer__bar">
+    <p id="viewerTitle"></p>
+    <a id="viewerPdf" href="#" target="_blank" rel="noopener">Open PDF</a>
+    <button class="btn btn--line" type="button" id="viewerClose">Close</button>
+  </div>
+  <img id="viewerImg" alt="">
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
