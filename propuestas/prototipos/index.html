@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototypes | Option A</title>
+<link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js" } }
+</script>
+<style>
+  :root { --orange: #e4602d; --ink: #0f1830; --paper: #f1f1ef; --muted: #aeb6c8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Archivo", system-ui, sans-serif; background: var(--paper); color: var(--ink); }
+  h2 { font-variation-settings: "wdth" 118; font-weight: 780; font-size: clamp(2rem, 4vw, 3.6rem); line-height: .98; margin: 0; letter-spacing: -.015em; }
+  p { margin: 0; }
+  section { min-height: 100dvh; display: grid; align-items: center; padding: 5rem clamp(16px, 5vw, 64px); }
+
+  /* 1. Drawing to prototype: a brush that reveals the real photo under its line drawing */
+  .reveal-sec { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); }
+  .reveal-sec .copy { display: grid; gap: 1.2rem; max-width: 30rem; }
+  .reveal-sec .copy p { color: #3f4b63; }
+  .reveal { position: relative; aspect-ratio: 3 / 4; max-height: 82vh; justify-self: center; width: 100%; border-radius: 4px; overflow: hidden; background: var(--ink); cursor: crosshair; touch-action: none; }
+  .reveal img, .reveal canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hint { position: absolute; left: 1rem; bottom: 1rem; padding: .45rem .8rem; border-radius: 999px; background: var(--orange); color: var(--ink); font-size: .85rem; font-weight: 650; pointer-events: none; transition: opacity .5s; }
+  .hint.is-gone { opacity: 0; }
+
+  /* 2. The ending: a portrait made of points, assembled when you arrive, pushed by the cursor */
+  .face-sec { position: relative; background: var(--ink); color: var(--paper); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
+  .face-sec canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .face-sec .copy { position: relative; z-index: 1; display: grid; gap: 1.2rem; grid-column: 2; max-width: 30rem; pointer-events: none; }
+  .face-sec .copy p { color: var(--muted); }
+  .face-sec .copy a { pointer-events: auto; color: var(--paper); font-size: clamp(1.2rem, 2.4vw, 2rem); font-weight: 750; font-variation-settings: "wdth" 112; }
+  .face-sec .hint { left: auto; right: 1.5rem; bottom: 1.5rem; }
+  .note { font-size: .8rem; color: var(--muted); }
+  @media (max-width: 820px) {
+    .reveal-sec, .face-sec { grid-template-columns: 1fr; }
+    .face-sec .copy { grid-column: 1; align-self: end; }
+  }
+</style>
+</head>
+<body>
+
+<section class="reveal-sec">
+  <div class="copy">
+    <h2>From drawing to prototype</h2>
+    <p>Prototype 1, the small interaction from bleibtgleich.dev: a brush that uncovers the real exoskeleton under its line drawing. It would live inside the exoskeleton project card.</p>
+    <p class="note">The drawing is generated from the photo with edge detection. With your SolidWorks files it could be the real CAD render on top and the photo below.</p>
+  </div>
+  <div class="reveal" id="reveal">
+    <img src="exo-photo.jpg" alt="The 3D-printed exoskeleton prototype leaning against a wall">
+    <canvas aria-hidden="true"></canvas>
+    <span class="hint" id="revealHint">Move your cursor over the drawing</span>
+  </div>
+</section>
+
+<section class="face-sec" id="faceSec">
+  <canvas id="face" aria-hidden="true"></canvas>
+  <div class="copy">
+    <h2>Let's build something.</h2>
+    <p>Prototype 2, the ending from behfar.dev: your portrait as points. They come together as you arrive and move out of the way of the cursor.</p>
+    <a href="mailto:vmcarlos024@gmail.com">vmcarlos024@gmail.com</a>
+    <p class="note">This uses your current profile photo (800 px, small face), so detail is low. A new photo would look much sharper.</p>
+  </div>
+  <span class="hint" id="faceHint">Move your cursor through the points</span>
+</section>
+
+<script type="module">
+import * as THREE from 'three';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---------- 1. Reveal brush (canvas 2D, a fading mask of soft stamps)
+{
+  const box = document.getElementById('reveal');
+  const cvs = box.querySelector('canvas');
+  const ctx = cvs.getContext('2d');
+  const hint = document.getElementById('revealHint');
+  const lines = new Image(); lines.src = 'exo-lines.jpg';
+  const mask = document.createElement('canvas');
+  const m = mask.getContext('2d');
+  let W = 0, H = 0, last = null, trail = [];
+  const fit = () => {
+    const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    W = cvs.width = Math.round(r.width * d); H = cvs.height = Math.round(r.height * d);
+    mask.width = Math.round(W / 2); mask.height = Math.round(H / 2);
+  };
+  new ResizeObserver(fit).observe(box);
+  box.addEventListener('pointermove', (e) => {
+    const r = box.getBoundingClientRect();
+    trail.push([(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]);
+    hint.classList.add('is-gone');
+  });
+  box.addEventListener('pointerleave', () => { last = null; });
+  const stamp = (x, y, s) => {
+    const R = mask.width * 0.15 * s;
+    const g = m.createRadialGradient(x, y, 0, x, y, R);
+    g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(0.6, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    m.fillStyle = g; m.beginPath(); m.arc(x, y, R, 0, Math.PI * 2); m.fill();
+  };
+  (function loop() {
+    // the revealed area slowly closes back over, like ink drying
+    m.globalCompositeOperation = 'destination-out';
+    m.fillStyle = `rgba(0,0,0,${reduce ? 0.004 : 0.006})`;
+    m.fillRect(0, 0, mask.width, mask.height);
+    m.globalCompositeOperation = 'source-over';
+    for (const [u, v] of trail) {
+      const x = u * mask.width, y = v * mask.height;
+      if (last) {
+        const n = Math.ceil(Math.hypot(x - last[0], y - last[1]) / 6);
+        for (let i = 1; i <= n; i++) {
+          const t = i / n;
+          stamp(last[0] + (x - last[0]) * t + (Math.random() - 0.5) * 10, last[1] + (y - last[1]) * t + (Math.random() - 0.5) * 10, 0.7 + Math.random() * 0.6);
+        }
+      } else stamp(x, y, 1);
+      last = [x, y];
+    }
+    trail = [];
+    ctx.globalCompositeOperation = 'source-over';
+    if (lines.complete) ctx.drawImage(lines, 0, 0, W, H);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.drawImage(mask, 0, 0, W, H);
+    requestAnimationFrame(loop);
+  })();
+}
+
+// ---------- 2. Portrait as points (three.js Points with a small shader)
+{
+  const sec = document.getElementById('faceSec');
+  const canvas = document.getElementById('face');
+  const hint = document.getElementById('faceHint');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 20);
+  camera.position.set(0, 0, 4.2);
+
+  const img = new Image();
+  img.src = '../../assets/images/profile/Carlos_Velasco.jpeg';
+  await img.decode();
+  // crop around head and shoulders, sample every pixel of a 1.6x upscale
+  const crop = { x: 292, y: 196, w: 236, h: 337 }, up = 1.6;
+  const cw = Math.round(crop.w * up), ch = Math.round(crop.h * up);
+  const c2 = Object.assign(document.createElement('canvas'), { width: cw, height: ch });
+  const x2 = c2.getContext('2d', { willReadFrequently: true });
+  x2.drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, cw, ch);
+  const data = x2.getImageData(0, 0, cw, ch).data;
+  const pos = [], col = [], lum = [], scatter = [];
+  const k = 2.2 / ch;
+  for (let y = 0; y < ch; y += 2) for (let x = 0; x < cw; x += 2) {
+    const i = (y * cw + x) * 4;
+    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+    const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    if (L < 0.13) continue;                                   // dark areas disappear, like the reference
+    pos.push((x - cw / 2) * k, -(y - ch / 2) * k, L * 0.35);  // brighter points sit a little closer
+    col.push(Math.min(1, r * 1.15), Math.min(1, g * 1.05), b * 0.95);
+    lum.push(L);
+    const a = Math.random() * Math.PI * 2, rr = 1.5 + Math.random() * 2.5;
+    scatter.push(Math.cos(a) * rr, Math.sin(a) * rr, (Math.random() - 0.5) * 3);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('aColor', new THREE.Float32BufferAttribute(col, 3));
+  geo.setAttribute('aLum', new THREE.Float32BufferAttribute(lum, 1));
+  geo.setAttribute('aScatter', new THREE.Float32BufferAttribute(scatter, 3));
+  const uniforms = {
+    uTime: { value: 0 }, uProgress: { value: reduce ? 1 : 0 }, uMouse: { value: new THREE.Vector3(9, 9, 0) },
+    uSize: { value: 3.2 * renderer.getPixelRatio() },
+  };
+  const mat = new THREE.ShaderMaterial({
+    uniforms, transparent: true, depthWrite: false,
+    vertexShader: `
+      uniform float uTime, uProgress, uSize; uniform vec3 uMouse;
+      attribute vec3 aColor, aScatter; attribute float aLum;
+      varying vec3 vColor; varying float vA;
+      void main() {
+        float t = smoothstep(0.0, 1.0, clamp(uProgress * 1.4 - aLum * 0.4, 0.0, 1.0)); // bright points land first
+        vec3 p = mix(position + aScatter, position, t);
+        vec2 d = p.xy - uMouse.xy;
+        float f = smoothstep(0.34, 0.0, length(d));
+        p.xy += normalize(d + 1e-4) * f * 0.22;
+        p.z += f * 0.25 + sin(uTime * 1.3 + position.y * 7.0) * 0.006;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = uSize * (0.45 + aLum) * (4.2 / -mv.z);
+        vColor = aColor; vA = t;
+      }`,
+    fragmentShader: `
+      varying vec3 vColor; varying float vA;
+      void main() {
+        float r = length(gl_PointCoord - 0.5);
+        if (r > 0.5) discard;
+        gl_FragColor = vec4(vColor, vA * smoothstep(0.5, 0.35, r));
+      }`,
+  });
+  const face = new THREE.Points(geo, mat);
+  scene.add(face);
+
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hit = new THREE.Vector3();
+  let target = 0, tilt = 0;
+  sec.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    if (ray.ray.intersectPlane(plane, hit)) uniforms.uMouse.value.copy(face.worldToLocal(hit.clone()));
+    tilt = ndc.x * 0.25;
+    hint.classList.add('is-gone');
+  });
+  sec.addEventListener('pointerleave', () => uniforms.uMouse.value.set(9, 9, 0));
+  new IntersectionObserver(([e]) => { target = e.isIntersecting ? 1 : 0; }, { threshold: 0.35 }).observe(sec);
+
+  const fitFace = () => {
+    const r = sec.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+    face.position.x = r.width > 820 ? -0.55 * camera.aspect * 0.55 : 0;   // left half on desktop
+    face.position.y = r.width > 820 ? 0 : 0.35;
+  };
+  new ResizeObserver(fitFace).observe(sec);
+  renderer.setAnimationLoop((t) => {
+    uniforms.uTime.value = t / 1000;
+    uniforms.uProgress.value += (target - uniforms.uProgress.value) * (reduce ? 1 : 0.025);
+    face.rotation.y += (tilt - face.rotation.y) * 0.05;
+    renderer.render(scene, camera);
+  });
+}
+</script>
+</body>
+</html>
